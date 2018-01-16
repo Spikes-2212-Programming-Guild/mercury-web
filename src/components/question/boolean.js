@@ -1,4 +1,4 @@
-import SelectQuestion from './SelectQuestion'
+import SelectQuestion from './enum'
 import React, {Component} from 'react'
 
 class SwitchQuestion extends SelectQuestion {

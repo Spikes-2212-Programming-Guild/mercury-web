@@ -1,4 +1,4 @@
-import Question from './Question'
+import Question from './basic'
 import React, {Component} from 'react'
 
 

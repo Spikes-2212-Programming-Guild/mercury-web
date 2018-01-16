@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionSet from './QuestionSet';
+import QuestionSet from './question-set';
 import axios from 'axios';
 
 class App extends Component {
