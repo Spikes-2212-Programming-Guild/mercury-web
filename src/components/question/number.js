@@ -6,7 +6,7 @@ class NumericQuestion extends Question {
         return (
             <div className={this.optimizeName(this.state.gameStage)}>
                 <b>{this.state.data.name}</b> <br/>
-                <input name={this.optimizeName(this.state.data.name)}
+                <input name={this.getOptimizedName()}
                         type="number"
                         min={this.state.data.params.min}/>
             </div>

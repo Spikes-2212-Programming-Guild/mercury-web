@@ -7,7 +7,7 @@ class TextQuestion extends Question {
         return (
             <div className={this.state.gameStage}>
                 <b>{this.state.data.name}</b> <br/>
-                <input name={this.optimizeName(this.state.data.name)} />
+                <input name={this.getOptimizedName()} />
             </div>
         )
     }

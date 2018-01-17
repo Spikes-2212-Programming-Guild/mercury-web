@@ -18,7 +18,7 @@ class SelectQuestion extends Question {
 
     render() {
         let inputs = [];
-        let optimizedName = this.optimizeName(this.state.data.name);
+        let optimizedName = this.getOptimizedName();
         this.state.data.params.options.forEach(function(options) {
             inputs.push(<SelectionOption name={options}
                                          questionName={optimizedName}/>);

@@ -9,6 +9,10 @@ class Question extends Component {
         }
     }
 
+    getOptimizedName() {
+        return this.optimizeName(this.state.data.name + this.state.gameStage);
+    }
+
     optimizeName(name) {
         return name.split(' ').join('').toLowerCase();
     }
