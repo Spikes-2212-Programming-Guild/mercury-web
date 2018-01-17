@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import SwitchQuestion from './question/boolean'
 import SelectQuestion from './question/enum'
-import RangeQuestion from './question/RangeQuestion'
 import NumericQuestion from './question/number'
 import TextQuestion from './question/text'
 
