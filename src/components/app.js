@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import QuestionSet from './QuestionSet';
+import QuestionSet from './question-set';
 import axios from 'axios';
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
             form: null
         };
 
-        axios.get("/scoutingForm/getCurrentForm").then(res => {
+        axios.get("/scouting-form/current").then(res => {
             alert(JSON.stringify(res.data));
             this.setState({form: res.data});
             this.forceUpdate();

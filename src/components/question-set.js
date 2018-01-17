@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
-import SwitchQuestion from './question/SwitchQuestion'
-import SelectQuestion from './question/SelectQuestion'
-import RangeQuestion from './question/RangeQuestion'
-import NumericQuestion from './question/NumericQuestion'
-import TextQuestion from './question/TextQuestion'
+import SwitchQuestion from './question/boolean'
+import SelectQuestion from './question/enum'
+import NumericQuestion from './question/number'
+import TextQuestion from './question/text'
 
 class QuestionSet extends Component {
 
@@ -18,13 +17,11 @@ class QuestionSet extends Component {
         this.questionConstructors = {};
         this.questionConstructors['text'] =
             (data, gameStage) => {return <TextQuestion data={data} gameStage={gameStage}/>};
-        this.questionConstructors['range'] =
-            (data, gameStage) => {return <RangeQuestion data={data} gameStage={gameStage}/>};
-        this.questionConstructors['numeric'] =
+        this.questionConstructors['number'] =
             (data, gameStage) => {return <NumericQuestion data={data} gameStage={gameStage}/>};
-        this.questionConstructors['select'] =
+        this.questionConstructors['enum'] =
             (data, gameStage) => {return <SelectQuestion data={data} gameStage={gameStage}/>};
-        this.questionConstructors['switch'] =
+        this.questionConstructors['boolean'] =
             (data, gameStage) => {return <SwitchQuestion data={data} gameStage={gameStage}/>};
     }
 
