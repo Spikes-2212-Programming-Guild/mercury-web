@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from './question-set'
+import NumericQuestion from './question/number'
 import axios from 'axios'
 
 class App extends Component {
@@ -41,6 +42,12 @@ class App extends Component {
       return (
         <div>
           <form ref="scouting-form" id="scouting-form">
+            <NumericQuestion data={{name: 'Team Number',
+              type: 'number',
+              params: {
+                min: '0'
+              }
+            }} gameStage=""/>
             {questionSets}
 
           </form>
