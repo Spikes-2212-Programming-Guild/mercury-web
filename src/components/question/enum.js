@@ -17,11 +17,11 @@ class SelectionOption extends Component {
 class SelectQuestion extends Question {
 
     render() {
-        let inputs = [];
-        let optimizedName = this.getOptimizedName();
-        this.state.data.params.options.forEach(function(options) {
-            inputs.push(<SelectionOption name={options}
-                                         questionName={optimizedName}/>);
+        const inputs = [];
+        const optimizedName = this.getOptimizedName();
+        this.state.data.params.options.forEach(function(option, index) {
+            inputs.push(<SelectionOption name={option}
+                                         questionName={optimizedName} key={index}/>);
         });
 
         return (
