@@ -25,18 +25,17 @@ class App extends Component {
         questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
       })
 
-      function submitFactory(refs) {
-        return function() {
+      function submitFactory (refs) {
+        return function () {
           const form = ReactDOM.findDOMNode(refs['scouting-form'])
 
           const data = {}
 
-          alert(form)
           const elements = Array.from(form.elements)
 
           elements.forEach(element => data[element.name] = element.value)
-          alert("after loop")
-          axios.post('scouting-form/submit', {form: data}).then(() => alert("a")).catch(() => alert("b"));
+
+          axios.post('scouting-form/submit', {form: data}).then(() => alert('a')).catch(() => alert('b'))
         }
       }
       return (

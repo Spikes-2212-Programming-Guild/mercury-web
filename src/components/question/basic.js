@@ -1,30 +1,29 @@
 import React, {Component} from 'react'
 
 class Question extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data : props.data,
-            gameStage : props.gameStage
-        }
+  constructor (props) {
+    super(props)
+    this.state = {
+      data: props.data,
+      gameStage: props.gameStage
     }
+  }
 
-    getOptimizedName() {
-        return this.optimizeName(this.state.data.name + this.state.gameStage);
-    }
+  getOptimizedName () {
+    return this.optimizeName(this.state.data.name + this.state.gameStage)
+  }
 
-    optimizeName(name) {
-        return name.split(' ').join('').toLowerCase();
-    }
+  optimizeName (name) {
+    return name.split(' ').join('').toLowerCase()
+  }
 
-    render() {
-        return (
-            <div>
+  render () {
+    return (
+      <div>
 
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
 
-export default Question;
-
+export default Question
