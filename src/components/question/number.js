@@ -1,6 +1,9 @@
 import React from 'react'
 import Question from './basic'
 
+/**
+ * This class extends {Question} and represents a question that expects a number as its answer.
+ */
 class NumericQuestion extends Question {
   render () {
     return (
