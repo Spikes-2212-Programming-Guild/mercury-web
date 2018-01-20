@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import SwitchQuestion from './question/boolean'
 import SelectQuestion from './question/enum'
 import NumericQuestion from './question/number'
-import TextQuestion from './question/text'
+import TextQuestion from './question/string'
 
 class QuestionSet extends Component {
   constructor (props) {
