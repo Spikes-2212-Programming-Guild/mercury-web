@@ -25,20 +25,6 @@ class App extends Component {
       Object.keys(this.state.form).forEach((res) => {
         questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
       })
-
-      function submitFactory (refs) {
-        return function () {
-          const form = ReactDOM.findDOMNode(refs['scouting-form'])
-
-          const data = {}
-
-          const elements = Array.from(form.elements)
-
-          elements.forEach(element => data[element.name] = element.value)
-
-          axios.post('scouting-form/submit', {form: data}).then(() => alert('a')).catch(() => alert('b'))
-        }
-      }
       return (
         <div>
           <form ref="scouting-form" id="scouting-form">
@@ -51,7 +37,23 @@ class App extends Component {
             {questionSets}
 
           </form>
-          <input type="submit" value="Submit" onClick={submitFactory(this.refs)}/>
+          <input type="submit" value="Submit" onClick={
+            () => {
+              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+
+              const data = {}
+
+              const elements = Array.from(form.elements)
+
+              elements.forEach((element) => data[element.name] = element.value)
+
+              axios.post('scouting-form/submit', {form: data}, {
+                'Content-Type': 'application/json'
+              })
+                .then(() => alert('Submitted Data Successfully'))
+                .catch(() => alert('Error While Submiting Data'))
+            }
+          }/>
         </div>
       )
     }
