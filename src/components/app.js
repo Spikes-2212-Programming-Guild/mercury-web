@@ -4,7 +4,21 @@ import QuestionSet from './question-set'
 import NumericQuestion from './question/number'
 import axios from 'axios'
 
+/**
+ * This is the main screen of the program.
+ * at the moment, it's responsability is to render a scouting and submit data from it.
+ * @todo make this called ScoutingForm add add react router that would display different views.
+ */
 class App extends Component {
+  /**
+   *
+   * This constructs a new {App} instance.
+   * after calling to super constructor, this constructor would submit a GET request on /scouting-form/current,
+   * and from there it would receive the JSON file that represents the current ScoutingForm
+   * this instance of mercury is working with
+   *
+   * @param props
+   */
   constructor (props) {
     super(props)
 
@@ -18,6 +32,10 @@ class App extends Component {
     })
   }
 
+  /**
+   * This method renders the current ScoutingForm instance to the screen
+   * @returns {XML} the rendered ScoutingForm
+   */
   render () {
     if (this.state.form) {
       const questionSets = []
@@ -58,7 +76,7 @@ class App extends Component {
       )
     }
 
-    return (<div></div>)
+    return <div></div>
   }
 }
 
