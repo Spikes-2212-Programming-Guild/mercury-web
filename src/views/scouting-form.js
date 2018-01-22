@@ -63,7 +63,9 @@ class ScoutingForm extends Component {
 
               const elements = Array.from(form.elements)
 
-              elements.forEach((element) => data[element.name] = element.value)
+              elements.forEach((element) => {
+                data[element.name] = element.value
+              })
 
               axios.post('scouting-form/submit', {form: data}, {
                 'Content-Type': 'application/json'
