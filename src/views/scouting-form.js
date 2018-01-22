@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import QuestionSet from './question-set'
-import NumericQuestion from './question/number'
+import QuestionSet from '../components/question-set'
+import NumericQuestion from '../components/question/number'
 import axios from 'axios'
 
 /**
@@ -9,10 +9,10 @@ import axios from 'axios'
  * at the moment, it's responsability is to render a scouting and submit data from it.
  * @todo make this called ScoutingForm add add react router that would display different views.
  */
-class App extends Component {
+class ScoutingForm extends Component {
   /**
    *
-   * This constructs a new {App} instance.
+   * This constructs a new {ScoutingForm} instance.
    * after calling to super constructor, this constructor would submit a GET request on /scouting-form/current,
    * and from there it would receive the JSON file that represents the current ScoutingForm
    * this instance of mercury is working with
@@ -63,7 +63,9 @@ class App extends Component {
 
               const elements = Array.from(form.elements)
 
-              elements.forEach((element) => data[element.name] = element.value)
+              elements.forEach((element) => {
+                data[element.name] = element.value
+              })
 
               axios.post('scouting-form/submit', {form: data}, {
                 'Content-Type': 'application/json'
@@ -80,4 +82,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default ScoutingForm
