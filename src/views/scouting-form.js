@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import QuestionSet from './question-set'
-import NumericQuestion from './question/number'
+import QuestionSet from '../components/question-set'
+import NumericQuestion from '../components/question/number'
 import axios from 'axios'
 
 /**
