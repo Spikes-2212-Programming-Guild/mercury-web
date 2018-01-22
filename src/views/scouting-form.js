@@ -7,7 +7,6 @@ import axios from 'axios'
 /**
  * This is the main screen of the program.
  * at the moment, it's responsability is to render a scouting and submit data from it.
- * @todo make this called ScoutingForm add add react router that would display different views.
  */
 class ScoutingForm extends Component {
   /**
@@ -32,6 +31,10 @@ class ScoutingForm extends Component {
     })
   }
 
+  /**
+   * This method is responsible for submitting the scouting form to the server
+   * @param event - event provided by the form when onSubmit event trigers.
+   */
   submitForm (event) {
     event.preventDefault()
     const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
