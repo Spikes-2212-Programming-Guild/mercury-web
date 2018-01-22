@@ -4,6 +4,9 @@ import SelectQuestion from './question/enum'
 import NumericQuestion from './question/number'
 import TextQuestion from './question/string'
 
+/**
+ * This class is responsible for displaying a set of questions that all share the same game stage (auto, teleop etc)
+ */
 class QuestionSet extends Component {
   constructor (props) {
     super(props)
