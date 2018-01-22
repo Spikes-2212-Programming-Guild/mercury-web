@@ -8,8 +8,8 @@ class SelectionOption extends Component {
   render () {
     return (
       <div>
-        <input type="radio" name={this.props.questionName}
-          value={this.props.name}/> {this.props.name}
+        <input type="radio" name={this.props.questionName} className=""
+          value={this.props.title}/> {this.props.title}
       </div>
     )
   }
@@ -23,7 +23,7 @@ class SelectQuestion extends Question {
     const inputs = []
     const optimizedName = this.getOptimizedName()
     this.state.data.params.options.forEach(function (option, index) {
-      inputs.push(<SelectionOption name={option}
+      inputs.push(<SelectionOption title={option}
         questionName={optimizedName} key={index}/>)
     })
 

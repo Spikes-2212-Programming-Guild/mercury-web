@@ -4,7 +4,21 @@ import QuestionSet from './question-set'
 import NumericQuestion from './question/number'
 import axios from 'axios'
 
+/**
+ * This is the main screen of the program.
+ * at the moment, it's responsability is to render a scouting and submit data from it.
+ * @todo make this called ScoutingForm add add react router that would display different views.
+ */
 class App extends Component {
+  /**
+   *
+   * This constructs a new {App} instance.
+   * after calling to super constructor, this constructor would submit a GET request on /scouting-form/current,
+   * and from there it would receive the JSON file that represents the current ScoutingForm
+   * this instance of mercury is working with
+   *
+   * @param props
+   */
   constructor (props) {
     super(props)
 
@@ -18,6 +32,10 @@ class App extends Component {
     })
   }
 
+  /**
+   * This method renders the current ScoutingForm instance to the screen
+   * @returns {XML} the rendered ScoutingForm
+   */
   render () {
     if (this.state.form) {
       const questionSets = []
@@ -25,20 +43,6 @@ class App extends Component {
       Object.keys(this.state.form).forEach((res) => {
         questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
       })
-
-      function submitFactory (refs) {
-        return function () {
-          const form = ReactDOM.findDOMNode(refs['scouting-form'])
-
-          const data = {}
-
-          const elements = Array.from(form.elements)
-
-          elements.forEach(element => data[element.name] = element.value)
-
-          axios.post('scouting-form/submit', {form: data}).then(() => alert('a')).catch(() => alert('b'))
-        }
-      }
       return (
         <div>
           <form ref="scouting-form" id="scouting-form">
@@ -51,12 +55,28 @@ class App extends Component {
             {questionSets}
 
           </form>
-          <input type="submit" value="Submit" onClick={submitFactory(this.refs)}/>
+          <input type="submit" value="Submit" onClick={
+            () => {
+              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+
+              const data = {}
+
+              const elements = Array.from(form.elements)
+
+              elements.forEach((element) => data[element.name] = element.value)
+
+              axios.post('scouting-form/submit', {form: data}, {
+                'Content-Type': 'application/json'
+              })
+                .then(() => alert('Submitted Data Successfully'))
+                .catch(() => alert('Error While Submiting Data'))
+            }
+          }/>
         </div>
       )
     }
 
-    return (<div></div>)
+    return <div></div>
   }
 }
 
