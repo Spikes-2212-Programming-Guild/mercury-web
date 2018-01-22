@@ -32,6 +32,23 @@ class ScoutingForm extends Component {
     })
   }
 
+  submitForm (event) {
+    event.preventDefault()
+    const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+    const data = {}
+    const elements = Array.from(form.elements)
+    elements.forEach(function (element) {
+      if (element.type === 'radio') {
+        if (element.checked) data[element.name] = element.value
+      } else {
+        data[element.name] = element.value
+      }
+    })
+    axios.post('/scouting-form/submit', {form: data})
+      .then(function () { alert('Submited Data Successfully') })
+      .catch(function () { alert('Error While Submitting Data') })
+  }
+
   /**
    * This method renders the current ScoutingForm instance to the screen
    * @returns {XML} the rendered ScoutingForm
@@ -46,7 +63,7 @@ class ScoutingForm extends Component {
       return (
         <div>
           <h1>Scouting Form</h1>
-          <form ref="scouting-form" id="scouting-form">
+          <form ref="scouting-form" onSubmit={this.submitForm}>
             <NumericQuestion data={{name: 'Team Number',
               type: 'number',
               params: {
@@ -55,26 +72,8 @@ class ScoutingForm extends Component {
             }} gameStage=""/>
             {questionSets}
 
+            <input type="submit" value="Submit"/>
           </form>
-          <input type="submit" value="Submit" onClick={
-            () => {
-              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-
-              const data = {}
-
-              const elements = Array.from(form.elements)
-
-              elements.forEach((element) => {
-                data[element.name] = element.value
-              })
-
-              axios.post('scouting-form/submit', {form: data}, {
-                'Content-Type': 'application/json'
-              })
-                .then(() => alert('Submitted Data Successfully'))
-                .catch(() => alert('Error While Submiting Data'))
-            }
-          }/>
         </div>
       )
     }
