@@ -33,7 +33,7 @@ class QuestionSet extends Component {
 
     return (
       <div>
-        <h1>{this.state.gameStage}</h1>
+        <h2>{this.state.gameStage}</h2>
         {renderedQuestions}
       </div>
     )
