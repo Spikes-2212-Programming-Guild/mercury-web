@@ -1,5 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/scouting-form';
+import App from './app';
 
 ReactDOM.render(<App />, document.getElementById('root'));
