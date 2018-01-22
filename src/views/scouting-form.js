@@ -5,7 +5,7 @@ import NumericQuestion from '../components/question/number'
 import axios from 'axios'
 
 /**
- * This is the main screen of the program.
+ * This screen is responsible for displaying the scouting form.
  * at the moment, it's responsability is to render a scouting and submit data from it.
  */
 class ScoutingForm extends Component {
