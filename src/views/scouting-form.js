@@ -45,6 +45,7 @@ class ScoutingForm extends Component {
       })
       return (
         <div>
+          <h1>Scouting Form</h1>
           <form ref="scouting-form" id="scouting-form">
             <NumericQuestion data={{name: 'Team Number',
               type: 'number',
