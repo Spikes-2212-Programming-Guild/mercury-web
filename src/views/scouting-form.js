@@ -30,28 +30,6 @@ class ScoutingForm extends Component {
       this.forceUpdate()
     })
   }
-
-  /**
-   * This method is responsible for submitting the scouting form to the server
-   * @param event - event provided by the form when onSubmit event trigers.
-   */
-  submitForm (event) {
-    event.preventDefault()
-    const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-    const data = {}
-    const elements = Array.from(form.elements)
-    elements.forEach(function (element) {
-      if (element.type === 'radio') {
-        if (element.checked) data[element.name] = element.value
-      } else {
-        data[element.name] = element.value
-      }
-    })
-    axios.post('/scouting-form/submit', {form: data})
-      .then(function () { alert('Submited Data Successfully') })
-      .catch(function () { alert('Error While Submitting Data') })
-  }
-
   /**
    * This method renders the current ScoutingForm instance to the screen
    * @returns {XML} the rendered ScoutingForm
@@ -66,7 +44,22 @@ class ScoutingForm extends Component {
       return (
         <div>
           <h1>Scouting Form</h1>
-          <form ref="scouting-form" onSubmit={this.submitForm}>
+          <form ref="scouting-form" onSubmit={(event) => {
+            event.preventDefault()
+            const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+            const data = {}
+            const elements = Array.from(form.elements)
+            elements.forEach(function (element) {
+              if (element.type === 'radio') {
+                if (element.checked) data[element.name] = element.value
+              } else {
+                data[element.name] = element.value
+              }
+            })
+            axios.post('/scouting-form/submit', {form: data})
+              .then(function () { alert('Submited Data Successfully') })
+              .catch(function () { alert('Error While Submitting Data') })
+          }}>
             <NumericQuestion data={{name: 'Team Number',
               type: 'number',
               params: {
