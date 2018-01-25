@@ -36,7 +36,8 @@ class TeamInfo extends Component {
               }
             ]
           }}
-          height={50}
+          height={10}
+          width={100}
           options={{
             scales: {
               yAxes: [{
@@ -66,7 +67,8 @@ class TeamInfo extends Component {
               ]
             }
           }
-          height={50}
+          height={10}
+          width={100}
           options={{
             scales: {
               yAxes:
@@ -98,7 +100,10 @@ class TeamInfo extends Component {
 
   render () {
     const graphs = this.generateGraphs(this.state.graphData)
-    return (<div>{graphs}</div>)
+    return (<div>
+      <h1>{this.state.teamNumber}</h1>
+      {graphs}
+    </div>)
   }
 }
 
