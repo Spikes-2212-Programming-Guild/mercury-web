@@ -36,9 +36,10 @@ class TeamInfo extends Component {
               }
             ]
           }}
-          height={10}
-          width={100}
+          height={'10%'}
+          width={'100%'}
           options={{
+            maintainAspectRation: false,
             scales: {
               yAxes: [{
                 ticks: {
@@ -67,9 +68,10 @@ class TeamInfo extends Component {
               ]
             }
           }
-          height={10}
-          width={100}
+          height={'10%'}
+          width={'100%'}
           options={{
+            maintainAspectRation: false,
             scales: {
               yAxes:
                 [{
@@ -101,7 +103,7 @@ class TeamInfo extends Component {
   render () {
     const graphs = this.generateGraphs(this.state.graphData)
     return (<div>
-      <h1>{this.state.teamNumber}</h1>
+      <h1>{'Team ' + this.state.teamNumber}</h1>
       {graphs}
     </div>)
   }
