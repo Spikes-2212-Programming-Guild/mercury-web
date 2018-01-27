@@ -33,9 +33,7 @@ class GraphSet extends Component {
           }}
         />)
     }
-    this.graphConstructors['boolean'] = (title, data) => {
-      return this.graphConstructors['enum'](title, data, ['Yes', 'No'])
-    }
+    this.graphConstructors['boolean'] = this.graphConstructors['enum']
     this.graphConstructors['number'] = (title, data) => {
       return (
         <Line
