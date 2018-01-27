@@ -23,8 +23,10 @@ class HomePage extends Component {
       </button> <br/> <br/>
       <button onClick={() => {
         const teamNumber = prompt('Enter Team Number')
-        this.renderResult = <Redirect to={'/team/' + teamNumber} push={true}/>
-        this.forceUpdate()
+        if (teamNumber) {
+          this.renderResult = <Redirect to={'/team/' + teamNumber} push={true}/>
+          this.forceUpdate()
+        }
       }}>
         info
       </button>
