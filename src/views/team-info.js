@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import GraphSet from '../components/graph-set'
+import TeamInfoParser from '../data-parsing/team-info-parser'
 import axios from 'axios'
 
 class TeamInfo extends Component {
@@ -19,7 +20,7 @@ class TeamInfo extends Component {
   render () {
     return (<div>
       <h1>{'Team ' + this.state.teamNumber}</h1>
-      <GraphSet data={this.state.graphData}/>
+      <GraphSet data={this.state.graphData} parser={TeamInfoParser}/>
     </div>)
   }
 }
