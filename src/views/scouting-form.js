@@ -25,7 +25,7 @@ class ScoutingForm extends Component {
       form: null
     }
 
-    axios.get('/scouting-form/current').then(res => {
+    axios.get('/api/game-config/').then(res => {
       this.setState({form: res.data})
       this.forceUpdate()
     })
@@ -56,7 +56,7 @@ class ScoutingForm extends Component {
                 data[element.name] = element.value
               }
             })
-            axios.post('/scouting-form/submit', {form: data})
+            axios.post('/api/team/submit-match', {match: data})
               .then(function () { alert('Submited Data Successfully') })
               .catch(function () { alert('Error While Submitting Data') })
           }}>
