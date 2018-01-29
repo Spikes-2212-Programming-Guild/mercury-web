@@ -33,7 +33,6 @@ class QuestionSet extends Component {
     this.state.questions.forEach((question) => {
       renderedQuestions.push(this.questionConstructors[question.type](question, gameStage))
     })
-
     return (
       <div>
         <h2>{this.state.gameStage}</h2>
