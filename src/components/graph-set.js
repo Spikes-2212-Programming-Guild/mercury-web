@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 
-import {Line, Doughnut} from 'react-chartjs-2'
+import {Line, Doughnut, Bar} from 'react-chartjs-2'
 
 class GraphSet extends Component {
   constructor (props) {
     super(props)
     this.graphConstructors = {}
-    this.graphConstructors['enum'] = (title, data, labels) => {
+    this.graphConstructors['doughnut'] = (title, data, labels) => {
       return (
         <Doughnut
           data={{
@@ -14,21 +14,48 @@ class GraphSet extends Component {
               {
                 label: title,
                 borderWidth: 1,
-                data: data,
-                label: title
+                data: data
               }
             ],
-            labels:labels
+            labels: labels
           }}
           height={'10%'}
           width={'100%'}
           options={{
-            maintainAspectRation: false,
           }}
         />)
     }
-    this.graphConstructors['boolean'] = this.graphConstructors['enum']
-    this.graphConstructors['number'] = (title, data) => {
+
+    this.graphConstructors['bar'] = (title, data, labels) => {
+      return (
+        <Bar
+          data={{
+            labels: labels,
+            datasets: [
+              {
+                label: title,
+                borderWidth: 1,
+                data: data
+              }
+            ]
+          }}
+          height={'10%'}
+          width={'100%'}
+          options={{
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  stepSize: 1
+                }
+              }]
+            }
+          }}
+        />
+      )
+    }
+
+    this.graphConstructors['line'] = (title, data) => {
       return (
         <Line
           data={
@@ -59,7 +86,6 @@ class GraphSet extends Component {
         />
       )
     }
-    this.graphConstructors['text'] = () => <div></div>
   }
   render () {
     const graphs = []
@@ -67,7 +93,11 @@ class GraphSet extends Component {
     const data = parser(this.props.data)
     Object.keys(data).forEach(key => {
       console.log(data[key].type)
-      graphs.push(this.graphConstructors[data[key].type](key, data[key].data, data[key].options))
+      const graph = this.graphConstructors[data[key].type](key, data[key].data, data[key].options)
+      graphs.push(<div>
+        <h2>{key}</h2> <br/>
+        {graph}
+      </div>)
     })
     return (<div>{graphs}</div>)
   }

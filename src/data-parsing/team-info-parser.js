@@ -14,6 +14,7 @@ function parser (info) {
       newQuestion.options = ['Yes', 'No']
     } else {
       newQuestion.data = info[key].data
+      newQuestion.type = 'line'
       parsedInfo[key] = newQuestion
       return
     }
@@ -31,6 +32,7 @@ function parser (info) {
     Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
 
     newQuestion.data = arr
+    newQuestion.type = 'doughnut'
 
     parsedInfo[key] = newQuestion
   }
