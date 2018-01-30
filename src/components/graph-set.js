@@ -22,7 +22,6 @@ class GraphSet extends Component {
           height={'10%'}
           width={'100%'}
           options={{
-            maintainAspectRatio: false
           }}
         />)
     }
@@ -43,7 +42,6 @@ class GraphSet extends Component {
           height={'10%'}
           width={'100%'}
           options={{
-            maintainAspectRatio: false,
             scales: {
               yAxes: [{
                 ticks: {
@@ -88,7 +86,6 @@ class GraphSet extends Component {
         />
       )
     }
-    this.graphConstructors['text'] = () => <div></div>
   }
   render () {
     const graphs = []
@@ -96,7 +93,11 @@ class GraphSet extends Component {
     const data = parser(this.props.data)
     Object.keys(data).forEach(key => {
       console.log(data[key].type)
-      graphs.push(this.graphConstructors[data[key].type](key, data[key].data, data[key].options))
+      const graph = this.graphConstructors[data[key].type](key, data[key].data, data[key].options)
+      graphs.push(<div>
+        <h2>{key}</h2> <br/>
+        {graph}
+      </div>)
     })
     return (<div>{graphs}</div>)
   }
