@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 
-import {Line, Doughnut} from 'react-chartjs-2'
+import {Line, Doughnut, Bar} from 'react-chartjs-2'
 
 class GraphSet extends Component {
   constructor (props) {
     super(props)
     this.graphConstructors = {}
-    this.graphConstructors['enum'] = (title, data, labels) => {
+    this.graphConstructors['doughnut'] = (title, data, labels) => {
       return (
         <Doughnut
           data={{
@@ -14,21 +14,50 @@ class GraphSet extends Component {
               {
                 label: title,
                 borderWidth: 1,
-                data: data,
-                label: title
+                data: data
               }
             ],
-            labels:labels
+            labels: labels
           }}
           height={'10%'}
           width={'100%'}
           options={{
-            maintainAspectRation: false,
+            maintainAspectRatio: false
           }}
         />)
     }
-    this.graphConstructors['boolean'] = this.graphConstructors['enum']
-    this.graphConstructors['number'] = (title, data) => {
+
+    this.graphConstructors['bar'] = (title, data, labels) => {
+      return (
+        <Bar
+          data={{
+            labels: labels,
+            datasets: [
+              {
+                label: title,
+                borderWidth: 1,
+                data: data
+              }
+            ]
+          }}
+          height={'10%'}
+          width={'100%'}
+          options={{
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  min: 0,
+                  stepSize: 1
+                }
+              }]
+            }
+          }}
+        />
+      )
+    }
+
+    this.graphConstructors['line'] = (title, data) => {
       return (
         <Line
           data={
