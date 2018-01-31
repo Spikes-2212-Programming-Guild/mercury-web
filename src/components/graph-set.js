@@ -123,7 +123,10 @@ class GraphSet extends Component {
                 {
                   label: 'average',
                   borderWidth: 1,
-                  data: data.map(() => avg)
+                  data: data.map(() => avg),
+                  fill: false,
+                  backgroundColor: 'cyan',
+                  borderColor: 'cyan'
                 }
               ]
             }
