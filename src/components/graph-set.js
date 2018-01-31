@@ -14,7 +14,9 @@ class GraphSet extends Component {
       return res
     }
     this.graphConstructors = {}
-    this.graphConstructors['doughnut'] = (title, data, labels) => {
+    this.graphConstructors['doughnut'] = (title, chartRecipe) => {
+      const labels = chartRecipe.labels
+      const data = chartRecipe.data
       return (
         <Doughnut
           data={{
@@ -34,7 +36,9 @@ class GraphSet extends Component {
         />)
     }
 
-    this.graphConstructors['bar'] = (title, data, labels) => {
+    this.graphConstructors['bar'] = (title, chartRecipe) => {
+      const labels = chartRecipe.labels
+      const data = chartRecipe.data
       return (
         <Bar
           data={{
@@ -99,7 +103,9 @@ class GraphSet extends Component {
       )
     }
 
-    this.graphConstructors['lineWithAvg'] = (title, data) => {
+    this.graphConstructors['lineWithAvg'] = (title, chartRecipe) => {
+      const avg = chartRecipe.avg
+      const data = chartRecipe.data
       return (
         <Line
           data={
@@ -117,7 +123,7 @@ class GraphSet extends Component {
                 {
                   label: 'average',
                   borderWidth: 1,
-                  data: [data.avg]
+                  data: data.map(() => avg)
                 }
               ]
             }
@@ -143,12 +149,12 @@ class GraphSet extends Component {
   render () {
     const graphs = []
     const parser = this.props.parser
-    const data = parser(this.props.data)
-    Object.keys(data).forEach(key => {
-      console.log(data[key].type)
-      const graph = this.graphConstructors[data[key].type](key, data[key].data, data[key].options)
+    const chartRecipes = parser(this.props.data)
+    Object.keys(chartRecipes).forEach(chartName => {
+      console.log(chartRecipes[chartName].type)
+      const graph = this.graphConstructors[chartRecipes[chartName].type](chartName, chartRecipes[chartName])
       graphs.push(<div>
-        <h2>{key}</h2> <br/>
+        <h2>{chartName}</h2> <br/>
         {graph}
       </div>)
     })
