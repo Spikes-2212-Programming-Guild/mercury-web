@@ -9,9 +9,9 @@ function parser (info) {
       'type': info[key].type
     }
     if (info[key].options) {
-      chart.options = info[key].options
+      chart.labels = info[key].options
     } else if (chart.type === 'boolean') {
-      chart.options = ['Yes', 'No']
+      chart.labels = ['Yes', 'No']
     } else {
       chart.data = info[key].data
       chart.type = 'lineWithAvg'
@@ -26,7 +26,7 @@ function parser (info) {
     }
 
     const parsedData = {}
-    chart.options.forEach(option => {
+    chart.labels.forEach(option => {
       parsedData[option] = 0
     })
 
