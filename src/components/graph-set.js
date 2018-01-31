@@ -30,8 +30,7 @@ class GraphSet extends Component {
           }}
           height={'10%'}
           width={'100%'}
-          options={{
-          }}
+          options={{}}
         />)
     }
 
@@ -99,7 +98,48 @@ class GraphSet extends Component {
         />
       )
     }
+
+    this.graphConstructors['lineWithAvg'] = (title, data) => {
+      return (
+        <Line
+          data={
+            {
+              labels: data,
+              datasets: [
+                {
+                  label: title,
+                  borderWidth: 1,
+                  borderColor: this.generateColors(1),
+                  data: data,
+                  fill: false,
+                  backgroundColor: this.generateColors(1)
+                },
+                {
+                  label: 'average',
+                  borderWidth: 1,
+                  data: [data.avg]
+                }
+              ]
+            }
+          }
+          height={'10%'}
+          width={'100%'}
+          options={{
+            maintainAspectRation: false,
+            scales: {
+              yAxes:
+                [{
+                  ticks: {
+                    min: 0
+                  }
+                }]
+            }
+          }}
+        />
+      )
+    }
   }
+
   render () {
     const graphs = []
     const parser = this.props.parser

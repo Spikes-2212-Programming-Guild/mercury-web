@@ -5,22 +5,28 @@
 function parser (info) {
   const parsedInfo = {}
   Object.keys(info).forEach(key => {
-    const newQuestion = {
+    const chart = {
       'type': info[key].type
     }
     if (info[key].options) {
-      newQuestion.options = info[key].options
-    } else if (newQuestion.type === 'boolean') {
-      newQuestion.options = ['Yes', 'No']
+      chart.options = info[key].options
+    } else if (chart.type === 'boolean') {
+      chart.options = ['Yes', 'No']
     } else {
-      newQuestion.data = info[key].data
-      newQuestion.type = 'line'
-      parsedInfo[key] = newQuestion
+      chart.data = info[key].data
+      chart.type = 'lineWithAvg'
+      var tot = 0
+      chart.data.forEach(input => {
+        tot += parseInt(input)
+      })
+      chart.avg = tot / info[key].data.length
+      console.log('Avg: ' + chart.avg)
+      parsedInfo[key] = chart
       return
     }
 
     const parsedData = {}
-    newQuestion.options.forEach(option => {
+    chart.options.forEach(option => {
       parsedData[option] = 0
     })
 
@@ -31,10 +37,10 @@ function parser (info) {
     const arr = []
     Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
 
-    newQuestion.data = arr
-    newQuestion.type = 'doughnut'
+    chart.data = arr
+    chart.type = 'doughnut'
 
-    parsedInfo[key] = newQuestion
+    parsedInfo[key] = chart
   }
   )
   return parsedInfo
