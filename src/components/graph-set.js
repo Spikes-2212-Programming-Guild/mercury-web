@@ -121,7 +121,7 @@ class GraphSet extends Component {
                   backgroundColor: this.generateColors(1)
                 },
                 {
-                  label: 'average',
+                  label: 'Average',
                   borderWidth: 1,
                   data: data.map(() => avg),
                   fill: false,
