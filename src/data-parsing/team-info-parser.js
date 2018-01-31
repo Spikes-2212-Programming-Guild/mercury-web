@@ -2,6 +2,18 @@
  * @param info
  * @returns {*}
  */
+
+function parseNumberQuestion (question) {
+  const chart = {}
+  chart.data = question.data
+  chart.type = 'lineWithAvg'
+  var tot = 0
+  chart.data.forEach(input => {
+    tot += parseInt(input)
+  })
+  chart.avg = tot / question.data.length
+}
+
 function parser (info) {
   const parsedInfo = {}
   Object.keys(info).forEach(key => {
@@ -13,15 +25,7 @@ function parser (info) {
     } else if (chart.type === 'boolean') {
       chart.labels = ['Yes', 'No']
     } else {
-      chart.data = info[key].data
-      chart.type = 'lineWithAvg'
-      var tot = 0
-      chart.data.forEach(input => {
-        tot += parseInt(input)
-      })
-      chart.avg = tot / info[key].data.length
-      console.log('Avg: ' + chart.avg)
-      parsedInfo[key] = chart
+      parsedInfo[key] = parseNumberQuestion(info[key])
       return
     }
 
