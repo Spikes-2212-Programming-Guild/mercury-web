@@ -15,7 +15,6 @@ function parseNumberQuestion (question, chartRecipe) {
 }
 
 function parseEnumQuestion (question, chartRecipe) {
-
   const parsedData = {}
   chartRecipe.labels.forEach(option => {
     parsedData[option] = 0
