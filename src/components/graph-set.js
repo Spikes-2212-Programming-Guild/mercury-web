@@ -5,6 +5,14 @@ import {Line, Doughnut, Bar} from 'react-chartjs-2'
 class GraphSet extends Component {
   constructor (props) {
     super(props)
+    const colors = ['rgba(255, 0, 0, 0.8)', 'rgba(0, 0, 255, 0.8)', 'rgba(0, 255, 0, 0.8)', 'rgba(0, 255, 255, 0.8)']
+    this.generateColors = function (size) {
+      const res = []
+      for (var i = 0; i < size; i++) {
+        res[i] = colors[i % colors.length]
+      }
+      return res
+    }
     this.graphConstructors = {}
     this.graphConstructors['doughnut'] = (title, data, labels) => {
       return (
@@ -14,7 +22,8 @@ class GraphSet extends Component {
               {
                 label: title,
                 borderWidth: 1,
-                data: data
+                data: data,
+                backgroundColor: this.generateColors(data.length)
               }
             ],
             labels: labels
@@ -35,7 +44,8 @@ class GraphSet extends Component {
               {
                 label: title,
                 borderWidth: 1,
-                data: data
+                data: data,
+                backgroundColor: this.generateColors(data.length)
               }
             ]
           }}
@@ -65,7 +75,10 @@ class GraphSet extends Component {
                 {
                   label: title,
                   borderWidth: 1,
-                  data: data
+                  borderColor: this.generateColors(1),
+                  data: data,
+                  fill: false,
+                  backgroundColor: this.generateColors(1)
                 }
               ]
             }
