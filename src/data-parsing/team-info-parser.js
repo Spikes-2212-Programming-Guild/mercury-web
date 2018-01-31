@@ -3,51 +3,55 @@
  * @returns {*}
  */
 
-function parseNumberQuestion (question) {
-  const chart = {}
-  chart.data = question.data
-  chart.type = 'lineWithAvg'
-  var tot = 0
-  chart.data.forEach(input => {
+function parseNumberQuestion (question, chartRecipe) {
+  chartRecipe.data = question.data
+  chartRecipe.type = 'lineWithAvg'
+  let tot = 0
+  chartRecipe.data.forEach(input => {
     tot += parseInt(input)
   })
-  chart.avg = tot / question.data.length
+  chartRecipe.avg = tot / question.data.length
+  return chartRecipe
+}
+
+function parseEnumQuestion (question, chartRecipe) {
+
+  const parsedData = {}
+  chartRecipe.labels.forEach(option => {
+    parsedData[option] = 0
+  })
+
+  question.data.forEach(input => {
+    parsedData[input] += 1
+  })
+
+  const arr = []
+  Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
+
+  chartRecipe.data = arr
+  chartRecipe.type = 'doughnut'
+  return chartRecipe
 }
 
 function parser (info) {
-  const parsedInfo = {}
+  const chartRecipes = {}
   Object.keys(info).forEach(key => {
-    const chart = {
+    const chartRecipe = {
       'type': info[key].type
     }
     if (info[key].options) {
-      chart.labels = info[key].options
-    } else if (chart.type === 'boolean') {
-      chart.labels = ['Yes', 'No']
+      chartRecipe.labels = info[key].options
+    } else if (chartRecipe.type === 'boolean') {
+      chartRecipe.labels = ['Yes', 'No']
     } else {
-      parsedInfo[key] = parseNumberQuestion(info[key])
+      chartRecipes[key] = parseNumberQuestion(info[key], chartRecipe)
       return
     }
 
-    const parsedData = {}
-    chart.labels.forEach(option => {
-      parsedData[option] = 0
-    })
-
-    info[key].data.forEach(input => {
-      parsedData[input] += 1
-    })
-
-    const arr = []
-    Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
-
-    chart.data = arr
-    chart.type = 'doughnut'
-
-    parsedInfo[key] = chart
+    chartRecipes[key] = parseEnumQuestion(info[key], chartRecipe)
   }
   )
-  return parsedInfo
+  return chartRecipes
 }
 
 export default parser
