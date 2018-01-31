@@ -5,7 +5,7 @@ import {Line, Doughnut, Bar} from 'react-chartjs-2'
 class GraphSet extends Component {
   constructor (props) {
     super(props)
-    const colors = ['rgba(255, 0, 0, 0.8)', 'rgba(0, 0, 255, 0.8)', 'rgba(0, 255, 0, 0.8)', 'rgba(0, 255, 255, 0.8)']
+    const colors = ['rgba(46, 139, 87, 0.8)', 'rgba(220, 20, 60, 0.8)', 'rgba(64, 224, 208, 0.8)', 'rgba(192, 192, 192, 0.8)', 'rgba(255, 218, 185, 0.8)', 'rgba(75, 0, 130, 0.8)']
     this.generateColors = function (size) {
       const res = []
       for (var i = 0; i < size; i++) {
@@ -92,11 +92,11 @@ class GraphSet extends Component {
             maintainAspectRation: false,
             scales: {
               yAxes:
-                [{
-                  ticks: {
-                    min: 0
-                  }
-                }]
+                                [{
+                                  ticks: {
+                                    min: 0
+                                  }
+                                }]
             }
           }}
         />
@@ -137,11 +137,11 @@ class GraphSet extends Component {
             maintainAspectRation: false,
             scales: {
               yAxes:
-                [{
-                  ticks: {
-                    min: 0
-                  }
-                }]
+                                [{
+                                  ticks: {
+                                    min: 0
+                                  }
+                                }]
             }
           }}
         />
