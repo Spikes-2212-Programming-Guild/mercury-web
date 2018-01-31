@@ -15,7 +15,7 @@ class GraphSet extends Component {
     }
     this.graphConstructors = {}
     this.graphConstructors['doughnut'] = (title, chartRecipe) => {
-      const labels = chartRecipe.labels
+      const labels = chartRecipe.options
       const data = chartRecipe.data
       return (
         <Doughnut
@@ -37,7 +37,7 @@ class GraphSet extends Component {
     }
 
     this.graphConstructors['bar'] = (title, chartRecipe) => {
-      const labels = chartRecipe.labels
+      const labels = chartRecipe.options
       const data = chartRecipe.data
       return (
         <Bar
