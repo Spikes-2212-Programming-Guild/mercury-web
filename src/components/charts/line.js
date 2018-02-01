@@ -10,10 +10,10 @@ export default (title, data) => {
             {
               label: title,
               borderWidth: 1,
-              borderColor: generateColors(1),
+              borderColor: this.generateColors(1),
               data: data,
               fill: false,
-              backgroundColor: generateColors(1)
+              backgroundColor: this.generateColors(1)
             }
           ]
         }
