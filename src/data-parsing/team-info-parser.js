@@ -2,42 +2,55 @@
  * @param info
  * @returns {*}
  */
+
+function parseNumberQuestion (question, chartRecipe) {
+  chartRecipe.data = question.data
+  chartRecipe.type = 'lineWithAvg'
+  let tot = 0
+  chartRecipe.data.forEach(input => {
+    tot += parseInt(input)
+  })
+  chartRecipe.avg = tot / question.data.length
+  return chartRecipe
+}
+
+function parseEnumQuestion (question, chartRecipe) {
+  const parsedData = {}
+  chartRecipe.labels.forEach(option => {
+    parsedData[option] = 0
+  })
+
+  question.data.forEach(input => {
+    parsedData[input] += 1
+  })
+
+  const arr = []
+  Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
+
+  chartRecipe.data = arr
+  chartRecipe.type = 'doughnut'
+  return chartRecipe
+}
+
 function parser (info) {
-  const parsedInfo = {}
+  const chartRecipes = {}
   Object.keys(info).forEach(key => {
-    const newQuestion = {
+    const chartRecipe = {
       'type': info[key].type
     }
     if (info[key].options) {
-      newQuestion.options = info[key].options
-    } else if (newQuestion.type === 'boolean') {
-      newQuestion.options = ['Yes', 'No']
+      chartRecipe.labels = info[key].options
+    } else if (chartRecipe.type === 'boolean') {
+      chartRecipe.labels = ['Yes', 'No']
     } else {
-      newQuestion.data = info[key].data
-      newQuestion.type = 'line'
-      parsedInfo[key] = newQuestion
+      chartRecipes[key] = parseNumberQuestion(info[key], chartRecipe)
       return
     }
 
-    const parsedData = {}
-    newQuestion.options.forEach(option => {
-      parsedData[option] = 0
-    })
-
-    info[key].data.forEach(input => {
-      parsedData[input] += 1
-    })
-
-    const arr = []
-    Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
-
-    newQuestion.data = arr
-    newQuestion.type = 'doughnut'
-
-    parsedInfo[key] = newQuestion
+    chartRecipes[key] = parseEnumQuestion(info[key], chartRecipe)
   }
   )
-  return parsedInfo
+  return chartRecipes
 }
 
 export default parser
