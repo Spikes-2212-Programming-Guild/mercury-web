@@ -15,7 +15,7 @@ class GraphSet extends Component {
     }
     this.graphConstructors = {}
     this.graphConstructors['doughnut'] = (title, chartRecipe) => {
-      const labels = chartRecipe.options
+      const labels = chartRecipe.labels
       const data = chartRecipe.data
       return (
         <Doughnut
@@ -37,7 +37,7 @@ class GraphSet extends Component {
     }
 
     this.graphConstructors['bar'] = (title, chartRecipe) => {
-      const labels = chartRecipe.options
+      const labels = chartRecipe.labels
       const data = chartRecipe.data
       return (
         <Bar
@@ -92,11 +92,11 @@ class GraphSet extends Component {
             maintainAspectRation: false,
             scales: {
               yAxes:
-                                [{
-                                  ticks: {
-                                    min: 0
-                                  }
-                                }]
+                [{
+                  ticks: {
+                    min: 0
+                  }
+                }]
             }
           }}
         />
