@@ -137,11 +137,11 @@ class GraphSet extends Component {
             maintainAspectRation: false,
             scales: {
               yAxes:
-                                [{
-                                  ticks: {
-                                    min: 0
-                                  }
-                                }]
+                [{
+                  ticks: {
+                    min: 0
+                  }
+                }]
             }
           }}
         />
