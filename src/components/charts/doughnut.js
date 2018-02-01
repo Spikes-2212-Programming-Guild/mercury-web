@@ -1,4 +1,4 @@
-import {generateColors} from "./chart-builder"
+import {generateColors} from './chart-builder'
 import {Doughnut} from 'react-chartjs-2'
 export default (title, chartRecipe) => {
   const labels = chartRecipe.labels
