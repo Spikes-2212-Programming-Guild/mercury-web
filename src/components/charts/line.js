@@ -1,3 +1,4 @@
+import React from 'react'
 import {generateColors} from './chart-builder'
 import {Line} from 'react-chartjs-2'
 export default (title, data) => {
