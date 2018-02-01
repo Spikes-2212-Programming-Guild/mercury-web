@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 
 import {Line, Doughnut, Bar} from 'react-chartjs-2'
 
+import parser from '../data-parsing/info-parser'
+
 class GraphSet extends Component {
   constructor (props) {
     super(props)
@@ -151,8 +153,7 @@ class GraphSet extends Component {
 
   render () {
     const graphs = []
-    const parser = this.props.parser
-    const chartRecipes = parser(this.props.data)
+    const chartRecipes = parser(this.props.data, this.props.config)
     Object.keys(chartRecipes).forEach(chartName => {
       console.log(chartRecipes[chartName].type)
       const graph = this.graphConstructors[chartRecipes[chartName].type](chartName, chartRecipes[chartName])
