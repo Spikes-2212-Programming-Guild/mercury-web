@@ -8,10 +8,8 @@ function parseNumberQuestion (question, config, chartRecipe) {
   chartRecipe.type = config.number
   let tot = 0
   chartRecipe.data.forEach(input => {
-    tot += parseInt(input)
     tot += parseInt(input) // Calculates the total of all data values
   })
-  chartRecipe.avg = tot / question.data.length
   chartRecipe.avg = tot / question.data.length // The average is the total of all values divided by the number of values
   let arr = [] // Holder array for finding median
   chartRecipe.data.forEach(input => {
