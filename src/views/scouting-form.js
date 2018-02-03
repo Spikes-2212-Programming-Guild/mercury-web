@@ -65,10 +65,10 @@ class ScoutingForm extends Component {
               params: {
                 min: '0'
               }
-            }} gameStage=""/>
+            }} gameStage="" noHelpers={true}/>
             {questionSets}
 
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" className="btn btn-danger"/>
           </form>
         </div>
       )
