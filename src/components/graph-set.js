@@ -21,7 +21,7 @@ class GraphSet extends Component {
     Object.keys(chartRecipes).forEach(chartName => {
       console.log(chartRecipes[chartName].type)
       const graph = this.graphConstructors[chartRecipes[chartName].type](chartName, chartRecipes[chartName])
-      graphs.push(<div>
+      graphs.push(<div className="chart-container">
         <h2>{chartName}</h2> <br/>
         {graph}
       </div>)
