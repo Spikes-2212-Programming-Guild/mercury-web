@@ -3,6 +3,7 @@ import {generateColors} from './chart-builder'
 import {Line} from 'react-chartjs-2'
 export default (title, chartRecipe) => {
   const avg = chartRecipe.avg
+  const med = chartRecipe.med
   const data = chartRecipe.data
   return (
     <Line
@@ -25,6 +26,14 @@ export default (title, chartRecipe) => {
               fill: false,
               backgroundColor: 'cyan',
               borderColor: 'cyan'
+            },
+            {
+              label: 'Median',
+              borderWidth: 1,
+              data: data.map(() => med),
+              fill: false,
+              backgroundColor: 'red',
+              borderColor: 'red'
             }
           ]
         }

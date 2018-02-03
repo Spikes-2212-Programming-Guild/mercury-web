@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Bar from './charts/bar'
 import Doughnut from './charts/doughnut'
 import Line from './charts/line'
-import LineWithAvg from './charts/line-with-avg'
+import LineWithAvg from './charts/detailed-line'
 
 class GraphSet extends Component {
   constructor (props) {
