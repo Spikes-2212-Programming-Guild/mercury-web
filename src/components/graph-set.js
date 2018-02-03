@@ -17,7 +17,7 @@ class GraphSet extends Component {
   render () {
     const graphs = []
     const parser = this.props.parser
-    const chartRecipes = parser(this.props.data)
+    const chartRecipes = parser(this.props.data, this.props.config)
     Object.keys(chartRecipes).forEach(chartName => {
       console.log(chartRecipes[chartName].type)
       const graph = this.graphConstructors[chartRecipes[chartName].type](chartName, chartRecipes[chartName])
