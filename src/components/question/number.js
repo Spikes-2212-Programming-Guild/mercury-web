@@ -26,7 +26,7 @@ class NumericQuestion extends Question {
           <div className="btn btn-group">
             <button type="button" className="btn btn-primary" onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')}>
               -1</button>
-            <input min={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number" className="btn btn-primary"/>
+            <input min={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number" className="btn btn-secondary"/>
             <button type="button" className="btn btn-primary" onClick={addNumberToInput(1, this.getOptimizedName() + 'input')}>
               +1</button>
           </div>
@@ -36,7 +36,7 @@ class NumericQuestion extends Question {
       return (
         <div className={this.optimizeName(this.state.gameStage)}>
           <div className="btn-group">
-            <input min={this.state.data.params.min} className="btn btn-primary" ref={this.getOptimizedName() + 'input'} type="number"/>
+            <input min={this.state.data.params.min} className="btn btn-secondary" ref={this.getOptimizedName() + 'input'} type="number"/>
           </div>
         </div>
       )
