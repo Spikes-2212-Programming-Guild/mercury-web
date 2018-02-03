@@ -1,7 +1,10 @@
 import React from 'react'
 import {generateColors} from './chart-builder'
 import {Line} from 'react-chartjs-2'
-export default (title, data) => {
+
+export default (title, chartRecipe) => {
+  const data = chartRecipe.data
+  const labels = chartRecipe.labels
   return (
     <Line
       data={

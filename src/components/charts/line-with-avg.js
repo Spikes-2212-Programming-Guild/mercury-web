@@ -1,7 +1,9 @@
 import React from 'react'
 import {generateColors} from './chart-builder'
 import {Line} from 'react-chartjs-2'
-export default (title, data) => {
+export default (title, chartRecipe) => {
+  const avg = chartRecipe.avg
+  const data = chartRecipe.data
   return (
     <Line
       data={
@@ -15,6 +17,14 @@ export default (title, data) => {
               data: data,
               fill: false,
               backgroundColor: generateColors(1)
+            },
+            {
+              label: 'Average',
+              borderWidth: 1,
+              data: data.map(() => avg),
+              fill: false,
+              backgroundColor: 'cyan',
+              borderColor: 'cyan'
             }
           ]
         }
