@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import GraphSet from '../components/graph-set'
-import viewConfig from '../view-configs/team-config'
+import viewConfig from '../data-parsing/configs/team-info-config'
 import axios from 'axios'
 
 class TeamInfo extends Component {
