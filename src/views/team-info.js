@@ -10,7 +10,7 @@ class TeamInfo extends Component {
       graphData: [],
       teamNumber: props.match.params.teamNumber
     }
-    axios.get('/team/info/' + this.state.teamNumber).then(res => {
+    axios.get('/api/team/info/' + this.state.teamNumber).then(res => {
       this.setState({graphData: res.data})
       this.forceUpdate()
     })

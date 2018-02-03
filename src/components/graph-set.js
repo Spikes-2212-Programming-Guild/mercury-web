@@ -1,28 +1,60 @@
 import React, {Component} from 'react'
 
-import {Bar, Line} from 'react-chartjs-2'
+import {Line, Doughnut, Bar} from 'react-chartjs-2'
 
 class GraphSet extends Component {
   constructor (props) {
     super(props)
+    const colors = ['rgba(46, 139, 87, 0.8)', 'rgba(220, 20, 60, 0.8)', 'rgba(64, 224, 208, 0.8)', 'rgba(192, 192, 192, 0.8)', 'rgba(255, 218, 185, 0.8)', 'rgba(75, 0, 130, 0.8)']
+    this.generateColors = function (size) {
+      const res = []
+      for (var i = 0; i < size; i++) {
+        res[i] = colors[i % colors.length]
+      }
+      return res
+    }
     this.graphConstructors = {}
-    this.graphConstructors['enum'] = (title, data, options) => {
+    this.graphConstructors['doughnut'] = (title, chartRecipe) => {
+      const labels = chartRecipe.labels
+      const data = chartRecipe.data
       return (
-        <Bar
+        <Doughnut
           data={{
-            labels: options,
             datasets: [
               {
                 label: title,
                 borderWidth: 1,
-                data: data
+                data: data,
+                backgroundColor: this.generateColors(data.length)
+              }
+            ],
+            labels: labels
+          }}
+          height={'10%'}
+          width={'100%'}
+          options={{}}
+        />)
+    }
+
+    this.graphConstructors['bar'] = (title, chartRecipe) => {
+      const labels = chartRecipe.labels
+      const data = chartRecipe.data
+      return (
+        <Bar
+          data={{
+            labels: labels,
+            datasets: [
+              {
+                label: title,
+                borderWidth: 1,
+                data: data,
+                backgroundColor: this.generateColors(data.length)
               }
             ]
           }}
           height={'10%'}
           width={'100%'}
           options={{
-            maintainAspectRation: false,
             scales: {
               yAxes: [{
                 ticks: {
@@ -32,10 +64,12 @@ class GraphSet extends Component {
               }]
             }
           }}
-        />)
+        />
+      )
     }
-    this.graphConstructors['boolean'] = this.graphConstructors['enum']
-    this.graphConstructors['number'] = (title, data) => {
+
+    this.graphConstructors['line'] = (title, chartRecipe) => {
+      const data = chartRecipe.data
       return (
         <Line
           data={
@@ -45,7 +79,10 @@ class GraphSet extends Component {
                 {
                   label: title,
                   borderWidth: 1,
-                  data: data
+                  borderColor: this.generateColors(1),
+                  data: data,
+                  fill: false,
+                  backgroundColor: this.generateColors(1)
                 }
               ]
             }
@@ -66,15 +103,73 @@ class GraphSet extends Component {
         />
       )
     }
-    this.graphConstructors['text'] = () => <div></div>
+
+    this.graphConstructors['detailedLine'] = (title, chartRecipe) => {
+      const avg = chartRecipe.avg
+      const med = chartRecipe.med
+      const data = chartRecipe.data
+      return (
+        <Line
+          data={
+            {
+              labels: data,
+              datasets: [
+                {
+                  label: title,
+                  borderWidth: 1,
+                  borderColor: this.generateColors(1),
+                  data: data,
+                  fill: false,
+                  backgroundColor: this.generateColors(1)
+                },
+                {
+                  label: 'Average',
+                  borderWidth: 1,
+                  data: data.map(() => avg),
+                  fill: false,
+                  backgroundColor: 'cyan',
+                  borderColor: 'cyan'
+                },
+                {
+                  label: 'Median',
+                  borderWidth: 1,
+                  data: data.map(() => med),
+                  fill: false,
+                  backgroundColor: 'red',
+                  borderColor: 'red'
+                }
+              ]
+            }
+          }
+          height={'10%'}
+          width={'100%'}
+          options={{
+            maintainAspectRation: false,
+            scales: {
+              yAxes:
+                [{
+                  ticks: {
+                    min: 0
+                  }
+                }]
+            }
+          }}
+        />
+      )
+    }
   }
+
   render () {
     const graphs = []
     const parser = this.props.parser
-    const data = parser(this.props.data)
-    Object.keys(data).forEach(key => {
-      console.log(data[key].type)
-      graphs.push(this.graphConstructors[data[key].type](key, data[key].data, data[key].options))
+    const chartRecipes = parser(this.props.data)
+    Object.keys(chartRecipes).forEach(chartName => {
+      console.log(chartRecipes[chartName].type)
+      const graph = this.graphConstructors[chartRecipes[chartName].type](chartName, chartRecipes[chartName])
+      graphs.push(<div>
+        <h2>{chartName}</h2> <br/>
+        {graph}
+      </div>)
     })
     return (<div>{graphs}</div>)
   }
