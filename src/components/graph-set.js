@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Bar from './charts/bar'
 import Doughnut from './charts/doughnut'
 import Line from './charts/line'
-import LineWithAvg from './charts/detailed-line'
+import detailedLine from './charts/detailed-line'
 
 class GraphSet extends Component {
   constructor (props) {
@@ -10,7 +10,7 @@ class GraphSet extends Component {
     this.graphConstructors = {}
     this.graphConstructors['bar'] = Bar
     this.graphConstructors['doughnut'] = Doughnut
-    this.graphConstructors['lineWithAvg'] = LineWithAvg
+    this.graphConstructors['detailedLine'] = detailedLine
     this.graphConstructors['line'] = Line
   }
 
