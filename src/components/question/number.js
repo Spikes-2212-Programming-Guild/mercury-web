@@ -35,6 +35,7 @@ class NumericQuestion extends Question {
     } else {
       return (
         <div className={this.optimizeName(this.state.gameStage)}>
+          <b>{this.state.data.name}</b> <br/>
           <div className="btn-group">
             <input min={this.state.data.params.min} name={this.getOptimizedName()} className="btn btn-secondary" ref={this.getOptimizedName() + 'input'} type="number"/>
           </div>
