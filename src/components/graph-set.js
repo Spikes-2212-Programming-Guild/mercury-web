@@ -68,7 +68,8 @@ class GraphSet extends Component {
       )
     }
 
-    this.graphConstructors['line'] = (title, data) => {
+    this.graphConstructors['line'] = (title, chartRecipe) => {
+      const data = chartRecipe.data
       return (
         <Line
           data={
@@ -103,8 +104,9 @@ class GraphSet extends Component {
       )
     }
 
-    this.graphConstructors['lineWithAvg'] = (title, chartRecipe) => {
+    this.graphConstructors['detailedLine'] = (title, chartRecipe) => {
       const avg = chartRecipe.avg
+      const med = chartRecipe.med
       const data = chartRecipe.data
       return (
         <Line
@@ -127,6 +129,14 @@ class GraphSet extends Component {
                   fill: false,
                   backgroundColor: 'cyan',
                   borderColor: 'cyan'
+                },
+                {
+                  label: 'Median',
+                  borderWidth: 1,
+                  data: data.map(() => med),
+                  fill: false,
+                  backgroundColor: 'red',
+                  borderColor: 'red'
                 }
               ]
             }
