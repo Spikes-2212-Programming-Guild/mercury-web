@@ -52,7 +52,7 @@ class ScoutingForm extends Component {
             elements.forEach(function (element) {
               if (element.type === 'radio') {
                 if (element.checked) data[element.name] = element.value
-              } else {
+              } else if (element.type !== 'label') {
                 data[element.name] = element.value
               }
             })
