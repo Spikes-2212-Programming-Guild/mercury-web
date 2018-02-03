@@ -20,6 +20,7 @@ export default (title, chartRecipe) => {
       height={'10%'}
       width={'100%'}
       options={{
+        maintainAspectRatio: true,
         scales: {
           yAxes: [{
             ticks: {

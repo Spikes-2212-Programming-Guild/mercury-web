@@ -17,8 +17,11 @@ export default (title, chartRecipe) => {
         ],
         labels: labels
       }}
-      height={'10%'}
+
+      height={'30vh'}
       width={'100%'}
-      options={{}}
+      options={{
+        maintainAspectRatio: true
+      }}
     />)
 }
