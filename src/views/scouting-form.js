@@ -52,7 +52,7 @@ class ScoutingForm extends Component {
             elements.forEach(function (element) {
               if (element.type === 'radio') {
                 if (element.checked) data[element.name] = element.value
-              } else {
+              } else if (element.type !== 'label') {
                 data[element.name] = element.value
               }
             })
@@ -65,10 +65,10 @@ class ScoutingForm extends Component {
               params: {
                 min: '0'
               }
-            }} gameStage=""/>
+            }} gameStage="" noHelpers={true}/>
             {questionSets}
 
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" className="btn btn-danger"/>
           </form>
         </div>
       )
