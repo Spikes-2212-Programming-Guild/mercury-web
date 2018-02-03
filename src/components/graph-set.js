@@ -70,7 +70,8 @@ class GraphSet extends Component {
       )
     }
 
-    this.graphConstructors['line'] = (title, data) => {
+    this.graphConstructors['line'] = (title, chartRecipe) => {
+      const data = chartRecipe.data
       return (
         <Line
           data={
