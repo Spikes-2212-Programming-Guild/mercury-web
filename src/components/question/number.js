@@ -23,17 +23,21 @@ class NumericQuestion extends Question {
       return (
         <div className={this.optimizeName(this.state.gameStage)}>
           <b>{this.state.data.name}</b> <br/>
-          <button type="button" className="btn btn-primary" onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')}>
-            -1</button>
-          <input min={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"/>
-          <button type="button" className="btn btn-primary" onClick={addNumberToInput(1, this.getOptimizedName() + 'input')}>
-            +1</button>
+          <div className="btn btn-group">
+            <button type="button" className="btn btn-primary" onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')}>
+              -1</button>
+            <input min={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number" className="btn btn-primary"/>
+            <button type="button" className="btn btn-primary" onClick={addNumberToInput(1, this.getOptimizedName() + 'input')}>
+              +1</button>
+          </div>
         </div>
       )
     } else {
       return (
         <div className={this.optimizeName(this.state.gameStage)}>
-          <input min={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"/>
+          <div className="btn-group">
+            <input min={this.state.data.params.min} className="btn btn-primary" ref={this.getOptimizedName() + 'input'} type="number"/>
+          </div>
         </div>
       )
     }
