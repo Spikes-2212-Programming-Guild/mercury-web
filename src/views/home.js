@@ -17,24 +17,6 @@ class HomePage extends Component {
     }}>
       <h1>Welcome To Mercury!!!</h1>
       <MainMenu view="home"/>
-      <button onClick={
-        () => {
-          this.renderResult = <Redirect to="/scouting-form" push={true}/>
-          this.forceUpdate()
-        }
-      }>
-        Scout
-      </button>
-      <br/> <br/>
-      <button onClick={() => {
-        const teamNumber = prompt('Enter Team Number')
-        if (teamNumber) {
-          this.renderResult = <Redirect to={'/team/' + teamNumber} push={true}/>
-          this.forceUpdate()
-        }
-      }}>
-        info
-      </button>
     </div>)
   }
 
