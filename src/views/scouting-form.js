@@ -43,7 +43,9 @@ class ScoutingForm extends Component {
         questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
       })
       return (
-        <div>
+        <div className="text-center" style={{
+          margin: '20px'
+        }}>
           <h1>Scouting Form</h1>
           <MainMenu view="scouting-form"/>
           <form ref="scouting-form" onSubmit={(event) => {

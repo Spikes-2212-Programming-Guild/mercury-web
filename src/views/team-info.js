@@ -20,7 +20,9 @@ class TeamInfo extends Component {
   }
 
   render () {
-    return (<div>
+    return (<div className="text-center" style={{
+      margin: '20px'
+    }}>
       <h1>{'Team ' + this.state.teamNumber}</h1>
       <MainMenu view="team-info"/>
       <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
