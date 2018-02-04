@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import GraphSet from '../components/graph-set'
 import TeamInfoParser from '../data-parsing/team-info-parser'
 import TeamInfoConfig from '../data-parsing/configs/team-info-config'
+import MainMenu from './main-menu'
 import axios from 'axios'
 
 class TeamInfo extends Component {
@@ -21,6 +22,7 @@ class TeamInfo extends Component {
   render () {
     return (<div>
       <h1>{'Team ' + this.state.teamNumber}</h1>
+      <MainMenu view="team-info"/>
       <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
     </div>)
   }
