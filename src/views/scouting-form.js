@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
+import MainMenu from './main-menu'
 import axios from 'axios'
 
 /**
@@ -44,6 +45,7 @@ class ScoutingForm extends Component {
       return (
         <div>
           <h1>Scouting Form</h1>
+          <MainMenu view="scouting-form"/>
           <form ref="scouting-form" onSubmit={(event) => {
             event.preventDefault()
             const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
@@ -74,7 +76,8 @@ class ScoutingForm extends Component {
       )
     }
 
-    return <div></div>
+    return <div>
+      <MainMenu view="scouting-form"/></div>
   }
 }
 
