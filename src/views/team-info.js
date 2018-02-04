@@ -19,7 +19,9 @@ class TeamInfo extends Component {
   }
 
   render () {
-    return (<div>
+    return (<div className="text-center" style={{
+      margin: '20px'
+    }}>
       <h1>{'Team ' + this.state.teamNumber}</h1>
       <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
     </div>)

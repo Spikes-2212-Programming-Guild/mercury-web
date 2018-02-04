@@ -11,7 +11,9 @@ class HomePage extends Component {
       redirectToScoutingForm: false
     }
 
-    this.renderResult = (<div>
+    this.renderResult = (<div className="text-center" style={{
+      margin: '20px'
+    }}>
       <h1>Welcome To Mercury!!!</h1>
       <button onClick={
         () => {
@@ -20,7 +22,8 @@ class HomePage extends Component {
         }
       }>
         Scout
-      </button> <br/> <br/>
+      </button>
+      <br/> <br/>
       <button onClick={() => {
         const teamNumber = prompt('Enter Team Number')
         if (teamNumber) {
@@ -37,4 +40,5 @@ class HomePage extends Component {
     return this.renderResult
   }
 }
+
 export default HomePage
