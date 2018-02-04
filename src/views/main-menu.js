@@ -43,7 +43,7 @@ class MainMenu extends Component {
             if (this.state.ref) {
               const input = this.state.ref
               const teamNumber = input.value
-              if (teamNumber && !isNaN(teamNumber)) {
+              if (teamNumber && !isNaN(teamNumber) && teamNumber !== this.props.teamNumber) {
                 this.setState({toRender: <Redirect to={'/team/' + teamNumber} push={true}/>})
               }
             }

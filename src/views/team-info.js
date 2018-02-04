@@ -24,7 +24,7 @@ class TeamInfo extends Component {
       margin: '20px'
     }}>
       <h1>{'Team ' + this.state.teamNumber}</h1>
-      <MainMenu view="team-info"/>
+      <MainMenu view="team-info" teamNumber={this.state.teamNumber}/>
       <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
     </div>)
   }
