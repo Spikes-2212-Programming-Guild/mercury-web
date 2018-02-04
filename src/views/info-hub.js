@@ -34,7 +34,7 @@ class InfoHub extends Component {
         }>
           <h2>{'Info by team'}</h2>
           <b>{'Enter Team Number'}</b> <br/>
-          <input type='number' name='teamNumber'/>
+          <input className='btn btn-secondary' type='number' name='teamNumber'/>
         </form>
       </div>
     }

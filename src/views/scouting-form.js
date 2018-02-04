@@ -95,8 +95,7 @@ class ScoutingForm extends Component {
       )
     }
 
-    return <div>
-      <MainMenu view="scouting-form"/></div>
+    return <div>Loading...</div>
   }
 }
 
