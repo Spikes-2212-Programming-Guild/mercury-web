@@ -12,16 +12,6 @@ class MainMenu extends Component {
         margin: '0px'
       }}>
         <div className="btn-group">
-          <button className="btn btn-secondary" style={{
-            width: '35vw'
-          }} onClick={() => {
-            if (this.state.currentView !== 'home') {
-              this.setState({
-                toRender: <Redirect to="/"/>
-              })
-              this.forceUpdate()
-            }
-          }}>Home</button>
           <button className="btn btn-secondary" onClick={() => {
             if (this.state.currentView !== 'scouting-form') {
               this.setState({
