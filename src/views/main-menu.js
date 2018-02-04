@@ -40,7 +40,9 @@ class MainMenu extends Component {
   }
 
   render () {
-    return (<div className="w-100">
+    return (<div className="w-100" style={{
+      margin: '20px'
+    }}>
       {this.state.toRender} <br/>
     </div>)
   }
