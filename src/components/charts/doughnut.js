@@ -17,7 +17,6 @@ export default (title, chartRecipe) => {
         ],
         labels: labels
       }}
-
       height={'30vh'}
       width={'100%'}
       options={{
