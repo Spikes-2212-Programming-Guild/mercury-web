@@ -24,14 +24,13 @@ class InfoHub extends Component {
               console.log('Received TeamNumber: ' + teamNumber)
             }
           })
-          if (teamNumber !== 0) {
+          if (teamNumber) {
             this.setState({
               toRender: <Redirect to={'/team/' + teamNumber} push={true}/>
             })
+            this.forceUpdate()
           }
-          this.forceUpdate()
-        }
-        }>
+        }}>
           <h2>{'Info by team'}</h2>
           <b>{'Enter Team Number'}</b> <br/>
           <input className='btn btn-secondary' type='number' name='teamNumber'/>
