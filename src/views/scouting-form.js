@@ -57,8 +57,10 @@ class ScoutingForm extends Component {
             var incorrectElement = ''
             console.group('AAAAA')
             elements.forEach(function (element) {
-              if ((element.type === 'radio' && element.checked)) {
-                data[element.name] = element.value
+              if (element.type === 'radio') {
+                if (element.checked) {
+                  data[element.name] = element.value
+                }
               } else if (element.type !== 'label' && element.type !== 'button') {
                 if (!element.value || element.value === ' ') {
                   formValid = false
@@ -66,10 +68,6 @@ class ScoutingForm extends Component {
                 } else {
                   data[element.name] = element.value
                 }
-              }
-
-              if (!formValid) {
-                console.log(element.name)
               }
             })
             console.groupEnd()
