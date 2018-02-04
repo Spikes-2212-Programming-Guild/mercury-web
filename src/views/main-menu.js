@@ -45,6 +45,8 @@ class MainMenu extends Component {
               const teamNumber = input.value
               if (teamNumber && !isNaN(teamNumber) && teamNumber !== this.props.teamNumber) {
                 this.setState({toRender: <Redirect to={'/team/' + teamNumber} push={true}/>})
+                this.forceUpdate()
+                window.location.reload()
               }
             }
           }} style={{
