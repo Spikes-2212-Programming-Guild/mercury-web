@@ -13,7 +13,7 @@ class MainMenu extends Component {
       }}>
         <div className="btn-group">
           <button className="btn btn-secondary" style={{
-            width: '35vw'
+            width: '25vw'
           }} onClick={() => {
             if (this.state.currentView !== 'home') {
               this.setState({
@@ -21,7 +21,8 @@ class MainMenu extends Component {
               })
               this.forceUpdate()
             }
-          }}>Home</button>
+          }}>Home
+          </button>
           <button className="btn btn-secondary" onClick={() => {
             if (this.state.currentView !== 'scouting-form') {
               this.setState({
@@ -30,30 +31,21 @@ class MainMenu extends Component {
               this.forceUpdate()
             }
           }} style={{
-            width: '35vw'
-          }}>Scout</button>
-        </div>
-
-        <div className="btn-group">
-          <input ref={(c) => { this.setState({ref: c}) }} className="btn btn-warning" type="number"
-            placeholder="Team Number" style={{
-              width: '35vw'
-            }}/>
+            width: '25vw'
+          }}>Scout
+          </button>
           <button className="btn btn-secondary" onClick={() => {
-            if (this.state.ref) {
-              const input = this.state.ref
-              const teamNumber = input.value
-              if (teamNumber && !isNaN(teamNumber) && teamNumber !== this.props.teamNumber) {
-                this.setState({toRender: <Redirect to={'/team/' + teamNumber} push={true}/>})
-                this.forceUpdate()
-                window.location.reload()
-              }
+            if (this.state.currentView !== 'info-hub') {
+              this.setState({
+                toRender: <Redirect to="/info-hub/"/>
+              })
+              this.forceUpdate()
             }
           }} style={{
-            width: '35vw'
-          }}>Find Info </button>
+            width: '25vw'
+          }}>Info Hub
+          </button>
         </div>
-
       </div>
     }
   }
