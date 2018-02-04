@@ -55,7 +55,6 @@ class ScoutingForm extends Component {
             const elements = Array.from(form.elements)
             var formValid = true
             var incorrectElement = ''
-            console.group('AAAAA')
             elements.forEach(function (element) {
               if ((element.type === 'radio' && element.checked)) {
                 data[element.name] = element.value
