@@ -8,41 +8,58 @@ class MainMenu extends Component {
     this.state = {
       currentView: props.view,
       ref: undefined,
-      toRender: <div className="btn btn-group w-100">
-        <button className="btn btn-secondary" onClick={() => {
-          if (this.state.currentView !== 'home') {
-            this.setState({
-              toRender: <Redirect to="/"/>
-            })
-            this.forceUpdate()
-          }
-        }}>Home</button>
-        <button className="btn btn-secondary" onClick={() => {
-          if (this.state.currentView !== 'scouting-form') {
-            this.setState({
-              toRender: <Redirect to="/scouting-form/"/>
-            })
-            this.forceUpdate()
-          }
-        }}>Scout</button>
-        <input ref={(c) => { this.setState({ref: c}) }} className="btn btn-warning" type="number" placeholder="Team Number"/>
-        <button className="btn btn-secondary" onClick={() => {
-          if (this.state.ref) {
-            const input = this.state.ref
-            const teamNumber = input.value
-            if (teamNumber && !isNaN(teamNumber)) {
-              this.setState({toRender: <Redirect to={'/team/' + teamNumber} push={true}/>})
+      toRender: <div className="btn btn-group-vertical" style={{
+        margin: '0px'
+      }}>
+        <div className="btn-group">
+          <button className="btn btn-secondary" style={{
+            width: '35vw'
+          }} onClick={() => {
+            if (this.state.currentView !== 'home') {
+              this.setState({
+                toRender: <Redirect to="/"/>
+              })
+              this.forceUpdate()
             }
-          }
-        }}>Find Info For This Team </button>
+          }}>Home</button>
+          <button className="btn btn-secondary" onClick={() => {
+            if (this.state.currentView !== 'scouting-form') {
+              this.setState({
+                toRender: <Redirect to="/scouting-form/"/>
+              })
+              this.forceUpdate()
+            }
+          }} style={{
+            width: '35vw'
+          }}>Scout</button>
+        </div>
+
+        <div className="btn-group">
+          <input ref={(c) => { this.setState({ref: c}) }} className="btn btn-warning" type="number"
+            placeholder="Team Number" style={{
+              width: '35vw'
+            }}/>
+          <button className="btn btn-secondary" onClick={() => {
+            if (this.state.ref) {
+              const input = this.state.ref
+              const teamNumber = input.value
+              if (teamNumber && !isNaN(teamNumber) && teamNumber !== this.props.teamNumber) {
+                this.setState({toRender: <Redirect to={'/team/' + teamNumber} push={true}/>})
+                this.forceUpdate()
+                window.location.reload()
+              }
+            }
+          }} style={{
+            width: '35vw'
+          }}>Find Info </button>
+        </div>
+
       </div>
     }
   }
 
   render () {
-    return (<div className="w-100" style={{
-      margin: '20px'
-    }}>
+    return (<div>
       {this.state.toRender} <br/>
     </div>)
   }
