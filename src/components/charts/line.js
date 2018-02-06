@@ -20,10 +20,10 @@ export default (title, chartRecipe) => {
             {
               label: title,
               borderWidth: 1,
-              borderColor: this.generateColors(data.length),
+              borderColor: generateColors(data.length),
               data: data,
               fill: false,
-              backgroundColor: this.generateColors(data.length)
+              backgroundColor: generateColors(data.length)
             }
           ]
         }
