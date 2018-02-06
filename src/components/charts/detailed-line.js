@@ -1,6 +1,13 @@
 import React from 'react'
 import {generateColors} from './chart-builder'
 import {Line} from 'react-chartjs-2'
+
+/**
+ * Creates a line chart with average and median lines using parsed information.
+ * @param title - the title of the chart
+ * @param chartRecipe - the parsed data to display
+ * @returns {} The line chart tag.
+ */
 export default (title, chartRecipe) => {
   const avg = chartRecipe.avg
   const med = chartRecipe.med
