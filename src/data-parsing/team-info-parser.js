@@ -65,7 +65,7 @@ function parseEnumQuestion (question, config, isBoolean, chartRecipe) {
 }
 
 /**
- *
+ * Takes data from a form and parses it in order and form for displaying the charts.
  * @param info - Information from the form
  * @param config - a Json file containing the view configs for this information
  * @returns {{}} A list of chart recipes
