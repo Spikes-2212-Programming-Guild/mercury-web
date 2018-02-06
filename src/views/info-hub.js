@@ -3,7 +3,17 @@ import MainMenu from './main-menu'
 import {Redirect} from 'react-router-dom'
 import ReactDOM from 'react-dom'
 
+// TODO: Make this generic.
+/**
+ * This page is responsible to direct the user to whichever type of information they desire.
+ * It gives option to search for data according to whichever options given.
+ */
 class InfoHub extends Component {
+  /**
+   * This constructs a new {InfoHub}, with an input field for each type of information display.
+   * There's a form for each input so the user can press Enter to submit their request.
+   * @param props
+   */
   constructor (props) {
     super(props)
     this.state = {
@@ -14,7 +24,7 @@ class InfoHub extends Component {
         <form ref={(ci) => {
           this.setState({formRef: ci})
         }} onSubmit={(event) => {
-          // event.preventDefault()
+          event.preventDefault()
           const form = this.state.formRef
           const elements = Array.from(form.elements)
           var teamNumber = 0
@@ -39,6 +49,10 @@ class InfoHub extends Component {
     }
   }
 
+  /**
+   * Renders the page containing all info directs.
+   * @return {*}
+   */
   render () {
     return (<div className="text-center" style={{
       margin: '20px'
