@@ -3,6 +3,7 @@ import React from 'react'
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import ScoutingForm from '../views/scouting-form'
 import TeamInfo from '../views/team-info'
+import InfoHub from '../views/info-hub'
 
 /**
  * This module is responsible for displaying different components depending on the url (emulating a multi page app)
@@ -16,6 +17,7 @@ export default () => (
         <Redirect to="/scouting-form"/>
       )}/>
       <Route path="/team/:teamNumber" exact component={TeamInfo}/>
+      <Route path="/info-hub" exact component={InfoHub}/>
     </Switch>
   </BrowserRouter>
 )
