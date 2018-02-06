@@ -7,7 +7,7 @@ import axios from 'axios'
 
 /**
  * This screen is responsible for displaying the scouting form.
- * at the moment, it's responsability is to render a scouting and submit data from it.
+ * It's responsibility is to render a scouting form and submit data from it.
  */
 class ScoutingForm extends Component {
   /**
@@ -15,7 +15,7 @@ class ScoutingForm extends Component {
    * This constructs a new {ScoutingForm} instance.
    * after calling to super constructor, this constructor would submit a GET request on /scouting-form/current,
    * and from there it would receive the JSON file that represents the current ScoutingForm
-   * this instance of mercury is working with
+   * this instance of mercury is working with.
    *
    * @param props
    */
