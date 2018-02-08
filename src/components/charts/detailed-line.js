@@ -31,16 +31,16 @@ export default (title, chartRecipe) => {
               borderWidth: 1,
               data: data.map(() => avg),
               fill: false,
-              backgroundColor: 'cyan',
-              borderColor: 'cyan'
+              backgroundColor: generateColors(2)[1],
+              borderColor: generateColors(2)[1]
             },
             {
               label: 'Median',
               borderWidth: 1,
               data: data.map(() => med),
               fill: false,
-              backgroundColor: 'red',
-              borderColor: 'red'
+              backgroundColor: generateColors(3)[2],
+              borderColor: generateColors(3)[2]
             }
           ]
         }
