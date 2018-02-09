@@ -25,6 +25,7 @@ function parseNumberQuestion (question, config, chartRecipe) {
     chartRecipe.med = (arr[middle] + arr[middle + 1]) / 2 // The median is the average of the two middle values
   }
   console.log('med: ' + chartRecipe.med)
+  chartRecipe.matchnumber = question.matchnumber
   return chartRecipe
 }
 
@@ -53,17 +54,20 @@ function parseEnumQuestion (question, config, isBoolean, chartRecipe) {
 function parser (info, config) {
   const chartRecipes = {}
   Object.keys(info).forEach(key => {
-    const chartRecipe = {
-      'type': info[key].type
-    }
-    if (info[key].options) {
-      chartRecipe.labels = info[key].options
-      chartRecipes[key] = parseEnumQuestion(info[key], config, false, chartRecipe)
-    } else if (chartRecipe.type === 'boolean') {
-      chartRecipe.labels = ['Yes', 'No']
-      chartRecipes[key] = parseEnumQuestion(info[key], config, true, chartRecipe)
-    } else {
-      chartRecipes[key] = parseNumberQuestion(info[key], config, chartRecipe)
+    if (key !== 'matchnumber') {
+      const chartRecipe = {
+        'type': info[key].type
+      }
+      info[key].matchnumber = info['matchnumber'].data
+      if (info[key].options) {
+        chartRecipe.labels = info[key].options
+        chartRecipes[key] = parseEnumQuestion(info[key], config, false, chartRecipe)
+      } else if (chartRecipe.type === 'boolean') {
+        chartRecipe.labels = ['Yes', 'No']
+        chartRecipes[key] = parseEnumQuestion(info[key], config, true, chartRecipe)
+      } else {
+        chartRecipes[key] = parseNumberQuestion(info[key], config, chartRecipe)
+      }
     }
   }
   )
