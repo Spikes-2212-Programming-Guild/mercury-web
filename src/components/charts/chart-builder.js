@@ -9,7 +9,6 @@ var schemeNum = 0
 export function pickScheme (num) {
   console.log('Changed scheme to: ' + num + ' (from: ' + schemeNum + ')')
   schemeNum = num
-  console.log('Scheme is now: ' + schemeNum)
 }
 
 function getColorScheme (num) {

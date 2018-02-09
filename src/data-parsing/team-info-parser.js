@@ -24,7 +24,6 @@ function parseNumberQuestion (question, config, chartRecipe) {
   } else { // If there's an even number of arguments
     chartRecipe.med = (arr[middle] + arr[middle + 1]) / 2 // The median is the average of the two middle values
   }
-  console.log('med: ' + chartRecipe.med)
   return chartRecipe
 }
 

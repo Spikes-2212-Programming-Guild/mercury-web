@@ -33,12 +33,12 @@ class TeamInfo extends Component {
             }
           })
         }}>
-          <select name='chooseColors'>
+          <select name='chooseColors' class='btn btn-info'>
             <option value="0">Normal</option>
             <option value="1">Sagi Mode</option>
             <option value="2">Greyscale</option>
           </select>
-          <input type='submit' value='Change colors'/>
+          <input type='submit' value='Change colors' class='btn btn-warning'/>
         </form>
         <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
       </div>
@@ -52,7 +52,6 @@ class TeamInfo extends Component {
   }
 
   render () {
-    console.log('rendered graph set')
     if (this.toRender) return this.toRender
     return <div>Loading...</div>
   }
