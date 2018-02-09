@@ -1,8 +1,12 @@
 /**
- * @param info
- * @returns {*}
+ * This parses data for a numeric question.
+ * It takes the information from the question, the view configs, and the object in which to store the recipe,
+ * and parses the data as an array of numbers - the same as the given data, an average, and a median.
+ * @param question - the question to parse
+ * @param config - a Json file containing the view configs for this information
+ * @param chartRecipe - the object on which to make the recipe for the chart of this question
+ * @returns {} The updated chart recipe
  */
-
 function parseNumberQuestion (question, config, chartRecipe) {
   chartRecipe.data = question.data
   chartRecipe.type = config.number
@@ -28,6 +32,16 @@ function parseNumberQuestion (question, config, chartRecipe) {
   return chartRecipe
 }
 
+/**
+ * This parses data for an Enum question.
+ * It takes the information from the question, the view configs, and the object in which to store the recipe,
+ * and parses the data as an array of numbers corresponding to the number of appearances each option.
+ * @param question - the question to parse
+ * @param config - a Json file containing the view configs for this information
+ * @param isBoolean - whether the enum question is a boolean or not
+ * @param chartRecipe - the object on which to make the recipe for the chart of this question
+ * @returns {} The updated chart recipe
+ */
 function parseEnumQuestion (question, config, isBoolean, chartRecipe) {
   const parsedData = {}
   chartRecipe.labels.forEach(option => {
@@ -50,6 +64,12 @@ function parseEnumQuestion (question, config, isBoolean, chartRecipe) {
   return chartRecipe
 }
 
+/**
+ * Takes data from a form and parses it in order and form for displaying the charts.
+ * @param info - Information from the form
+ * @param config - a Json file containing the view configs for this information
+ * @returns {{}} A list of chart recipes
+ */
 function parser (info, config) {
   const chartRecipes = {}
   Object.keys(info).forEach(key => {

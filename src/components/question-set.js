@@ -8,6 +8,10 @@ import TextQuestion from './question/string'
  * This class is responsible for displaying a set of questions that all share the same game stage (auto, teleop etc)
  */
 class QuestionSet extends Component {
+  /**
+   * Constructs a new {QuestionSet} given the questions to display and the game stage to display the questions for.
+   * @param props - question and game stage.
+   */
   constructor (props) {
     super(props)
 
@@ -16,6 +20,10 @@ class QuestionSet extends Component {
       gameStage: props.gameStage
     }
 
+    /**
+     * An object containing constructors to various question types.
+     * @type {{input}}
+     */
     this.questionConstructors = {}
     this.questionConstructors['text'] =
             (data, gameStage) => { return <TextQuestion data={data} gameStage={gameStage}/> }
@@ -27,6 +35,10 @@ class QuestionSet extends Component {
             (data, gameStage) => { return <SwitchQuestion data={data} gameStage={gameStage}/> }
   }
 
+  /**
+   * Renders a div containing all the questions with in one game stage
+   * @returns {} A div containing the input tags
+   */
   render () {
     const renderedQuestions = []
     const gameStage = this.state.gameStage

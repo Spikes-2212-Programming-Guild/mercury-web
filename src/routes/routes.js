@@ -8,7 +8,6 @@ import InfoHub from '../views/info-hub'
 /**
  * This module is responsible for displaying different components depending on the url (emulating a multi page app)
  */
-
 export default () => (
   <BrowserRouter>
     <Switch>

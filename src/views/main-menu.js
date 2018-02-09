@@ -2,7 +2,14 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import ReactDOM from 'react-dom'
 
-class MainMenu extends Component {
+/**
+ * This is a menu bar containing buttons to redirect the user to the scouting form and the info hub.
+ */
+class MenuBar extends Component {
+  /**
+   * Constructs a new {MenuBar} which contains buttons to redirect user to wanted pages.
+   * @param props
+   */
   constructor (props) {
     super(props)
     this.state = {
@@ -39,6 +46,10 @@ class MainMenu extends Component {
     }
   }
 
+  /**
+   * Renders what is requested by the user (Either the current page or a {Redirect} to a requested page.
+   * @return {XML} The page or the requested page.
+   */
   render () {
     return (<div>
       {this.state.toRender} <br/>
@@ -46,4 +57,4 @@ class MainMenu extends Component {
   }
 }
 
-export default MainMenu
+export default MenuBar
