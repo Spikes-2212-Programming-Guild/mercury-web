@@ -73,7 +73,13 @@ class ScoutingForm extends Component {
             if (formValid) {
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () { alert('Submited Data Successfully') })
-                .catch(function () { alert('Error While Submitting Data') })
+                .catch(function (err) {
+                  if (err.response.data === 'match-already-saved') {
+                    alert("This Match Was Already Saved!!!")
+                  } else {
+                    alert("Error While Submiting Data")
+                  }
+                })
             } else {
               alert('Invalied Form, Please Fix ' + incorrectElement)
             }
