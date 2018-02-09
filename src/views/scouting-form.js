@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
@@ -31,6 +31,7 @@ class ScoutingForm extends Component {
       this.forceUpdate()
     })
   }
+
   /**
    * This method renders the current ScoutingForm instance to the screen
    * @returns {XML} the rendered ScoutingForm
@@ -55,30 +56,49 @@ class ScoutingForm extends Component {
             const elements = Array.from(form.elements)
             var formValid = true
             var incorrectElement = ''
+            const checkedRadios = []
+            console.group('Validating:')
             elements.forEach(function (element) {
-              if (element.type === 'radio') {
-                if (element.checked) {
-                  data[element.name] = element.value
-                }
-              } else if (element.type !== 'label' && element.type !== 'button') {
-                if (!element.value || element.value === ' ') {
-                  formValid = false
-                  incorrectElement = element.name
-                } else {
-                  data[element.name] = element.value
+              if (formValid) {
+                if (element.type === 'radio' && checkedRadios.indexOf(element.name) === -1) {
+                  console.group('Checking radio input ' + element.name)
+                  if (element.checked) {
+                    console.log('Collected: ' + element.value)
+                    data[element.name] = element.value
+                    formValid = true
+                    checkedRadios.push(element.name)
+                  } else {
+                    console.log('failed to find anything. value: ' + element.value)
+                    formValid = false
+                    incorrectElement = element.name
+                  }
+                  console.groupEnd()
+                } else if (element.type !== 'label' && element.type !== 'button') {
+                  if (!element.value || element.value === ' ') {
+                    formValid = false
+                    incorrectElement = element.name
+                  } else {
+                    data[element.name] = element.value
+                  }
                 }
               }
             })
+            console.log(checkedRadios)
             console.groupEnd()
             if (formValid) {
               axios.post('/api/team/submit-match', {match: data})
-                .then(function () { alert('Submited Data Successfully') })
-                .catch(function () { alert('Error While Submitting Data') })
+                .then(function () {
+                  alert('Submited Data Successfully')
+                })
+                .catch(function () {
+                  alert('Error While Submitting Data')
+                })
             } else {
               alert('Invalied Form, Please Fix ' + incorrectElement)
             }
           }}>
-            <NumericQuestion data={{name: 'Team Number',
+            <NumericQuestion data={{
+              name: 'Team Number',
               type: 'number',
               params: {
                 min: '0'
