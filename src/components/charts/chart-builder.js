@@ -15,15 +15,10 @@ export function pickScheme (num) {
 function getColorScheme (num) {
   switch (parseInt(num)) {
     case 1:
-
-      console.log('color 1')
       return colorSchemes.redGreen
     case 2:
-
-      console.log('color 2')
       return colorSchemes.greyScale
     default:
-      console.log('color 3')
       return colorSchemes.default
   }
 }
@@ -31,7 +26,6 @@ function getColorScheme (num) {
 export function generateColors (size) {
   const res = []
   var colors = getColorScheme(schemeNum)
-  console.log(colors[0])
   for (let i = 0; i < size; i++) {
     res[i] = colors[i % colors.length]
   }
