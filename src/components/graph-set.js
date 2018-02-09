@@ -13,7 +13,7 @@ class GraphSet extends Component {
    * a data parser to format the data, and a Json file with viewing configs.
    * @param props - data, data parser, and info config
    */
-  constructor(props) {
+  constructor (props) {
     super(props)
     /**
      * An object containing constructors to various chart types.
@@ -28,7 +28,7 @@ class GraphSet extends Component {
 
   /**
    * This renders a divider containing all the graphs of the given data using a given format.
-   * @returns {XML} a div containing all the graphs.
+   * @returns {} a div containing all the graphs.
    */
   render () {
     // An array to contain the graphs.
