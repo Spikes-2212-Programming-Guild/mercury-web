@@ -84,6 +84,14 @@ class ScoutingForm extends Component {
                 min: '0'
               }
             }} gameStage="" noHelpers={true}/>
+
+            <NumericQuestion data={{
+              name: 'Match Number',
+              params: {
+                min: 1
+              }
+            }} gameStage=""/>
+
             {questionSets}
 
             <input type="submit" value="Submit" className="btn btn-danger"/>
