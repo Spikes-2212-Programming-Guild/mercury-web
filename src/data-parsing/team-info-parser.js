@@ -26,6 +26,7 @@ function parseNumberQuestion (question, config, chartRecipe) {
   }
   console.log('med: ' + chartRecipe.med)
   chartRecipe.labels = question.matchnumber
+  console.log(chartRecipe.labels)
   return chartRecipe
 }
 
@@ -58,7 +59,7 @@ function parser (info, config) {
       const chartRecipe = {
         'type': info[key].type
       }
-      info[key].matchnumber = info['matchnumber'].data
+      info[key].matchnumber = info['matchnumber']
       if (info[key].options) {
         chartRecipe.labels = info[key].options
         chartRecipes[key] = parseEnumQuestion(info[key], config, false, chartRecipe)
