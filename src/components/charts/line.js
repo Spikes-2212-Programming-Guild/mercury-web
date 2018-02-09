@@ -9,7 +9,7 @@ export default (title, chartRecipe) => {
     <Line
       data={
         {
-          labels: data,
+          labels: labels,
           datasets: [
             {
               label: title,
