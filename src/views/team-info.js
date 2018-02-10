@@ -33,12 +33,14 @@ class TeamInfo extends Component {
             }
           })
         }}>
-          <select name='chooseColors' class='btn btn-info'>
-            <option value="0">Normal</option>
-            <option value="1">Sagi Mode</option>
-            <option value="2">Greyscale</option>
-          </select>
-          <input type='submit' value='Change colors' class='btn btn-warning'/>
+          <div className="btn btn-group">
+            <select name='chooseColors' class='btn btn-info'>
+              <option value="0">Normal</option>
+              <option value="1">Sagi Mode</option>
+              <option value="2">Greyscale</option>
+            </select>
+            <input type='submit' value='Change colors' class='btn btn-warning'/>
+          </div>
         </form>
         <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
       </div>
