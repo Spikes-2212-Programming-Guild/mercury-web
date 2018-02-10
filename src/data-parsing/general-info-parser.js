@@ -16,7 +16,7 @@ const stage1Parsers = {
     const result = {}
     question.options.forEach(dataItem => { result[dataItem] = 0 })
     question.data.forEach(dataItem => {
-      if (result[dataItem]) {
+      if (result[dataItem] || result[dataItem] === 0) {
         result[dataItem] += 1
       }
     })
@@ -25,21 +25,27 @@ const stage1Parsers = {
 }
 
 function parseStage1 (info) {
-  const questionInfo = {}
+  const infoByQuestion = {}
   Object.keys(info).forEach(teamNumber => {
-    const question = info[teamNumber]
-    if (question.type === 'boolean') {
-      question.options = ['Yes']
-      questionInfo[teamNumber] = stage1Parsers['enum'](question)
-    } else {
-      questionInfo[teamNumber] = stage1Parsers[question.type](question)
-    }
+    const teamInfo = info[teamNumber]
+    const teamResult = {}
+    Object.keys(teamInfo).forEach(questionName => {
+      const question = teamInfo[questionName]
+      if (question.type === 'boolean') {
+        question.options = ['Yes']
+        teamResult[questionName] = stage1Parsers['enum'](question)
+      } else {
+        teamResult[questionName] = stage1Parsers[question.type](question)
+      }
+    })
+    infoByQuestion[teamNumber] = teamResult
   })
-  return questionInfo
+  return infoByQuestion
 }
 
 function parser (info) {
   const questionInfo = parseStage1(info)
+  console.log(questionInfo)
 }
 
 export default parser
