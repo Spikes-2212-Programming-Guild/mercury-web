@@ -19,7 +19,7 @@ class NumericQuestion extends Question {
       }
     }
     const questionInput = <input min={this.state.data.params.min}
-      name={this.getOptimizedName()} ref={this.getOptimizedName() + 'input'} type="number"
+      name={this.getOptimizedName()} placeholder={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"
       className="btn btn-secondary" style={{
         width: '30vw'
       }
