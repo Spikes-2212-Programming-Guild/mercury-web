@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import GeneralInfoParser from '../data-parsing/general-info-parser'
 import axios from 'axios'
 
 class AllTeamsInfo extends Component {
@@ -10,7 +9,7 @@ class AllTeamsInfo extends Component {
   render () {
     axios.get('/api/team/info/all/')
       .then(info => {
-        GeneralInfoParser(info.data)
+
       })
       .catch(err => {
         alert('error is ' + JSON.stringify(err))
