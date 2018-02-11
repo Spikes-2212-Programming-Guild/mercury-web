@@ -23,7 +23,7 @@ class NumericQuestion extends Question {
       className="btn btn-secondary" style={{
         width: '30vw'
       }
-      }/>
+      } required/>
     if (!this.props.noHelpers) {
       return (
         <div className={this.optimizeName(this.state.gameStage)}>

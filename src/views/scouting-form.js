@@ -54,49 +54,25 @@ class ScoutingForm extends Component {
             const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
             const data = {}
             const elements = Array.from(form.elements)
-            var formValid = true
-            var incorrectElement = ''
-            const checkedRadios = []
-            console.group('Validating:')
             elements.forEach(function (element) {
-              if (formValid) {
-                if (element.type === 'radio' && checkedRadios.indexOf(element.name) === -1) {
-                  console.group('Checking radio input ' + element.name)
-                  if (element.checked) {
-                    console.log('Collected: ' + element.value)
-                    data[element.name] = element.value
-                    formValid = true
-                    checkedRadios.push(element.name)
-                  } else {
-                    console.log('failed to find anything. value: ' + element.value)
-                    formValid = false
-                    incorrectElement = element.name
-                  }
-                  console.groupEnd()
-                } else if (element.type !== 'label' && element.type !== 'button') {
-                  if (!element.value || element.value === ' ') {
-                    formValid = false
-                    incorrectElement = element.name
-                  } else {
-                    data[element.name] = element.value
-                  }
+              if (element.type === 'radio') {
+                if (element.checked) {
+                  data[element.name] = element.value
                 }
+              } else if (element.type !== 'label' && element.type !== 'button') {
+                data[element.name] = element.value
               }
-            })
-            console.log(checkedRadios)
-            console.groupEnd()
-            if (formValid) {
-              axios.post('/api/team/submit-match', {match: data})
-                .then(function () {
-                  alert('Submited Data Successfully')
-                })
-                .catch(function () {
-                  alert('Error While Submitting Data')
-                })
-            } else {
-              alert('Invalied Form, Please Fix ' + incorrectElement)
             }
-          }}>
+            )
+            axios.post('/api/team/submit-match', {match: data})
+              .then(function () {
+                alert('Submited Data Successfully')
+              })
+              .catch(function () {
+                alert('Error While Submitting Data')
+              })
+          }
+          }>
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
