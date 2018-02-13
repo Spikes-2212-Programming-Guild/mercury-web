@@ -34,7 +34,7 @@ class MainMenu extends Component {
             width: '25vw'
           }}>Info Hub
           </button>
-          <button className="btn btn-warning" onClick={() => {
+          <button className="btn btn-secondary" onClick={() => {
             if (this.state.currentView !== 'settings-menu') {
               this.setState({
                 toRender: <Redirect to="/settings/" push={true}/>
