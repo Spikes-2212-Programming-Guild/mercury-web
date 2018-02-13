@@ -77,27 +77,38 @@ class ScoutingForm extends Component {
               } else if (element.type !== 'label' && element.type !== 'button') {
                 data[element.name] = element.value
               }
-            }
-            )
+            })
             axios.post('/api/team/submit-match', {match: data})
               .then(function () {
                 alert('Submited Data Successfully')
               })
-              .catch(function () {
-                alert('Error While Submitting Data')
+              .catch(function (err) {
+                if (err.response.data === 'match-already-saved') {
+                  alert('This Match Was Already Saved!!!')
+                } else {
+                  alert('Error While Submiting Data')
+                }
               })
             reset()
-          }
-          }>
+          }}>
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
               params: {}
             }} gameStage="" noHelpers={true}/>
-            {questionSets}
 
-            <input type="submit" value="Submit" className="btn btn-danger"/>
-            <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+            <NumericQuestion data={{
+              name: 'Match Number',
+              params: {
+                min: 1
+              }
+            }} gameStage=""/>
+
+            {questionSets}
+            <div className="btn btn-group">
+              <input type="submit" value="Submit" className="btn btn-danger"/>
+              <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+            </div>
           </form>
         </div>
       )

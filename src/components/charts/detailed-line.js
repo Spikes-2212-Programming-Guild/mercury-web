@@ -5,11 +5,12 @@ export default (title, chartRecipe) => {
   const avg = chartRecipe.avg
   const med = chartRecipe.med
   const data = chartRecipe.data
+  const labels = chartRecipe.labels
   return (
     <Line
       data={
         {
-          labels: data,
+          labels: labels,
           datasets: [
             {
               label: title,
