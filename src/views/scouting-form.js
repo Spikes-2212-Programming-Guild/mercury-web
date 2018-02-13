@@ -76,6 +76,7 @@ class ScoutingForm extends Component {
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
+              params: {}
             }} gameStage="" noHelpers={true}/>
             {questionSets}
 

@@ -15,6 +15,7 @@ class NumericQuestion extends Question {
 
         let newValue = value + number
         if (newValue < input.min) newValue = input.min
+        else if (newValue > input.max) newValue = input.max
         input.value = newValue
       }
     }
