@@ -38,6 +38,21 @@ class ScoutingForm extends Component {
    */
   render () {
     if (this.state.form) {
+      const reset = () => {
+        const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+        const elements = Array.from(form.elements)
+        elements.forEach(function (element) {
+          if (element.type === 'radio') {
+            if (element.checked) {
+              element.checked = false
+            }
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+            element.value = ''
+          }
+        }
+        )
+      }
+
       const questionSets = []
 
       Object.keys(this.state.form).forEach((res) => {
@@ -71,6 +86,7 @@ class ScoutingForm extends Component {
               .catch(function () {
                 alert('Error While Submitting Data')
               })
+            reset()
           }
           }>
             <NumericQuestion data={{
@@ -83,6 +99,7 @@ class ScoutingForm extends Component {
             {questionSets}
 
             <input type="submit" value="Submit" className="btn btn-danger"/>
+            <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
           </form>
         </div>
       )
