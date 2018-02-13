@@ -4,7 +4,7 @@ export const colorSchemes = {
     colors: ['rgba(46, 139, 87, 0.8)', 'rgba(220, 20, 60, 0.8)', 'rgba(64, 224, 208, 0.8)', 'rgba(192, 192, 192, 0.8)', 'rgba(255, 218, 185, 0.8)', 'rgba(75, 0, 130, 0.8)']
   },
   'redGreen': {
-    name: 'Sagi Mode',
+    name: 'Deutranopia Mode',
     colors: ['rgba(255, 215, 0, 0.8)', 'rgba(220, 20, 60, 0.8)', 'rgba(173, 200, 255, 0.8)', 'rgba(192, 192, 192, 0.8)', 'rgba(244, 164, 96, 0.8)', 'rgba(0, 0, 128, 0.8)']
   },
   'greyScale': {
