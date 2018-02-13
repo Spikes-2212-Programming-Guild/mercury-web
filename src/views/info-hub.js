@@ -32,7 +32,7 @@ class InfoHub extends Component {
         }}>
           <h2>{'Info by team'}</h2>
           <b>{'Enter Team Number'}</b> <br/>
-          <input className='btn btn-secondary' type='number' name='teamNumber'/>
+          <input min={1} max={10000} className='btn btn-secondary' type='number' name='teamNumber'/>
         </form>
       </div>
     }
