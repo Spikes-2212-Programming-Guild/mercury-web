@@ -35,9 +35,9 @@ class MainMenu extends Component {
           }}>Info Hub
           </button>
           <button className="btn btn-warning" onClick={() => {
-            if (this.state.currentView !== 'options-menu') {
+            if (this.state.currentView !== 'settings-menu') {
               this.setState({
-                toRender: <Redirect to="/options/" push={true}/>
+                toRender: <Redirect to="/settings/" push={true}/>
               })
               this.forceUpdate()
             }

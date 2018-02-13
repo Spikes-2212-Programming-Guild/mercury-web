@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import MainMenu from './main-menu'
 import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-builder'
 
-class OptionsMenu extends Component {
+class SettingsMenu extends Component {
   constructor (props) {
     super(props)
     var currentScheme = getColorScheme(localStorage.schemeNum)
@@ -26,7 +26,7 @@ class OptionsMenu extends Component {
 
     const updateHTML = () => {
       this.toRender = <div><h1>{'Options'}</h1>
-        <MainMenu view="options-menu"/>
+        <MainMenu view="settings-menu"/>
         <form ref={(ci) => this.setState({formRef: ci})} onSubmit={(event) => {
           event.preventDefault()
           const form = this.state.formRef
@@ -62,4 +62,4 @@ class OptionsMenu extends Component {
   }
 }
 
-export default OptionsMenu
+export default SettingsMenu

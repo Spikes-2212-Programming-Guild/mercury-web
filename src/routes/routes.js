@@ -4,7 +4,7 @@ import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import ScoutingForm from '../views/scouting-form'
 import TeamInfo from '../views/team-info'
 import InfoHub from '../views/info-hub'
-import OptionsMenu from '../views/options-menu'
+import SettingsMenu from '../views/settings-menu'
 
 /**
  * This module is responsible for displaying different components depending on the url (emulating a multi page app)
@@ -19,7 +19,7 @@ export default () => (
       )}/>
       <Route path="/team/:teamNumber" exact component={TeamInfo}/>
       <Route path="/info-hub" exact component={InfoHub}/>
-      <Route path="/options" exact component={OptionsMenu}/>
+      <Route path="/settings" exact component={SettingsMenu}/>
     </Switch>
   </BrowserRouter>
 )
