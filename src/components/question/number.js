@@ -18,7 +18,11 @@ class NumericQuestion extends Question {
         input.value = newValue
       }
     }
-    const questionInput = <input min={this.state.data.params.min}
+    // Setting a default minimum value if not set
+    const min = this.state.data.params.min ? this.state.data.params.min : 0
+    // Setting a default maximum value if not set
+    const max = this.state.data.params.max ? this.state.data.params.max : 10000
+    const questionInput = <input min={min} max={max}
       name={this.getOptimizedName()} placeholder={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"
       className="btn btn-secondary" style={{
         width: '30vw'
