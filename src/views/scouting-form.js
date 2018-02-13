@@ -105,9 +105,10 @@ class ScoutingForm extends Component {
             }} gameStage=""/>
 
             {questionSets}
-
-            <input type="submit" value="Submit" className="btn btn-danger"/>
-            <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+            <div className="btn btn-group">
+              <input type="submit" value="Submit" className="btn btn-danger"/>
+              <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+            </div>
           </form>
         </div>
       )
