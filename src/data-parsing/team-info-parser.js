@@ -25,8 +25,6 @@ function parseNumberQuestion (question, config, chartRecipe) {
     chartRecipe.med = (arr[middle] + arr[middle + 1]) / 2 // The median is the average of the two middle values
   }
   console.log('med: ' + chartRecipe.med)
-  chartRecipe.labels = question.matchnumber
-  console.log(chartRecipe.labels)
   return chartRecipe
 }
 
@@ -70,8 +68,7 @@ function parser (info, config) {
         chartRecipes[key] = parseNumberQuestion(info[key], config, chartRecipe)
       }
     }
-  }
-  )
+  })
   return chartRecipes
 }
 

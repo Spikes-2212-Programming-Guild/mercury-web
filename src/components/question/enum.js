@@ -10,7 +10,7 @@ class SelectQuestion extends Question {
     this.state.data.params.options.forEach((option, index) => {
       inputs.push(
         <label className="btn btn-primary">
-          <input type="radio" value={option} className="btn btn-primary" name={optimizedName}/> {option}
+          <input type="radio" value={option} className="btn btn-primary" name={optimizedName} required/> {option}
         </label>
       )
     })

@@ -7,14 +7,13 @@ class InfoHub extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      form: null,
       formRef: '',
       toRender: <div><h1>{'Data Hub'}</h1>
         <MainMenu view="info-hub"/>
         <form ref={(ci) => {
           this.setState({formRef: ci})
         }} onSubmit={(event) => {
-          // event.preventDefault()
+          event.preventDefault()
           const form = this.state.formRef
           const elements = Array.from(form.elements)
           var teamNumber = 0
@@ -33,7 +32,7 @@ class InfoHub extends Component {
         }}>
           <h2>{'Info by team'}</h2>
           <b>{'Enter Team Number'}</b> <br/>
-          <input className='btn btn-secondary' type='number' name='teamNumber'/>
+          <input min={1} max={10000} className='btn btn-secondary' type='number' name='teamNumber'/>
         </form>
       </div>
     }
