@@ -34,6 +34,17 @@ class MainMenu extends Component {
             width: '25vw'
           }}>Info Hub
           </button>
+          <button className="btn btn-warning" onClick={() => {
+            if (this.state.currentView !== 'options-menu') {
+              this.setState({
+                toRender: <Redirect to="/options/" push={true}/>
+              })
+              this.forceUpdate()
+            }
+          }} style={{
+            width: '20vw'
+          }}>Settings
+          </button>
         </div>
       </div>
     }
