@@ -57,7 +57,6 @@ function parser (info, config) {
       const chartRecipe = {
         'type': info[key].type
       }
-      info[key].matchnumber = info['matchnumber']
       if (info[key].options) {
         chartRecipe.labels = info[key].options
         chartRecipes[key] = parseEnumQuestion(info[key], config, false, chartRecipe)
@@ -65,6 +64,7 @@ function parser (info, config) {
         chartRecipe.labels = ['Yes', 'No']
         chartRecipes[key] = parseEnumQuestion(info[key], config, true, chartRecipe)
       } else {
+        chartRecipe.labels = info['matchnumber']
         chartRecipes[key] = parseNumberQuestion(info[key], config, chartRecipe)
       }
     }
