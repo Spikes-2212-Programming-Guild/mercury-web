@@ -3,6 +3,7 @@ import Bar from './charts/bar'
 import Doughnut from './charts/doughnut'
 import Line from './charts/line'
 import detailedLine from './charts/detailed-line'
+import detailedBar from './charts/deatiled-bar'
 
 class GraphSet extends Component {
   constructor (props) {
@@ -12,6 +13,7 @@ class GraphSet extends Component {
     this.graphConstructors['doughnut'] = Doughnut
     this.graphConstructors['detailedLine'] = detailedLine
     this.graphConstructors['line'] = Line
+    this.graphConstructors['detailedBar'] = detailedBar
   }
 
   render () {
