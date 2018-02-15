@@ -3,7 +3,7 @@ import Bar from './charts/bar'
 import Doughnut from './charts/doughnut'
 import Line from './charts/line'
 import detailedLine from './charts/detailed-line'
-import detailedBar from './charts/deatiled-bar'
+import detailedBar from './charts/detailed-bar'
 
 class GraphSet extends Component {
   constructor (props) {
