@@ -16,12 +16,6 @@ body {
   margin: auto;
 }
 
-input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-
 /* disable spinner in the number input field */
 
 .btn span.glyphicon {
