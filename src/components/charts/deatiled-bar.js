@@ -5,23 +5,35 @@ export default (title, chartRecipe) => {
   const labels = chartRecipe.labels
   const datasets = []
 
-  Object.keys(chartRecipe).forEach((key, index) => {
-    if (key !== 'type') {
+  let index = 0
+  Object.keys(chartRecipe).forEach((key) => {
+    if (key !== 'type' && key !== 'labels') {
+      index += 1
       datasets.push({
         label: key,
         borderWidth: 1,
         data: chartRecipe[key],
-        backgroundColor: generateColors(index)
+        backgroundColor: generateColors(index)[index - 1]
       })
     }
   })
-
-  return <Bar>
+  return <Bar
     data={{
       labels: labels,
-      datasets: datasets,
-      width: '100%',
-      height: '30vh'
+      datasets: datasets
     }}
-  </Bar>
+    width='100%'
+    height='30vh'
+
+    options={{
+      maintainAspectRatio: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            min: 0
+          }
+        }]
+      }
+    }}
+  />
 }
