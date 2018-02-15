@@ -41,7 +41,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 input[type="number"]{
   text-align: center;
 }
-
+input:invalid {
+	box-shadow: none;
+}
 /* div#root {
   margin: auto;
   max-width: 800px;
