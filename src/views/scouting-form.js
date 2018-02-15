@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
@@ -31,12 +31,28 @@ class ScoutingForm extends Component {
       this.forceUpdate()
     })
   }
+
   /**
    * This method renders the current ScoutingForm instance to the screen
    * @returns {XML} the rendered ScoutingForm
    */
   render () {
     if (this.state.form) {
+      const reset = () => {
+        const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+        const elements = Array.from(form.elements)
+        elements.forEach(function (element) {
+          if (element.type === 'radio') {
+            if (element.checked) {
+              element.checked = false
+            }
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+            element.value = ''
+          }
+        }
+        )
+      }
+
       const questionSets = []
 
       Object.keys(this.state.form).forEach((res) => {
@@ -53,40 +69,35 @@ class ScoutingForm extends Component {
             const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
             const data = {}
             const elements = Array.from(form.elements)
-            var formValid = true
-            var incorrectElement = ''
             elements.forEach(function (element) {
               if (element.type === 'radio') {
                 if (element.checked) {
                   data[element.name] = element.value
                 }
               } else if (element.type !== 'label' && element.type !== 'button') {
-                if (!element.value || element.value === ' ') {
-                  formValid = false
-                  incorrectElement = element.name
-                } else {
-                  data[element.name] = element.value
-                }
+                data[element.name] = element.value
               }
-            })
-            console.groupEnd()
-            if (formValid) {
-              axios.post('/api/team/submit-match', {match: data})
-                .then(function () { alert('Submited Data Successfully') })
-                .catch(function () { alert('Error While Submitting Data') })
-            } else {
-              alert('Invalied Form, Please Fix ' + incorrectElement)
             }
-          }}>
-            <NumericQuestion data={{name: 'Team Number',
+            )
+            axios.post('/api/team/submit-match', {match: data})
+              .then(function () {
+                alert('Submited Data Successfully')
+              })
+              .catch(function () {
+                alert('Error While Submitting Data')
+              })
+            reset()
+          }
+          }>
+            <NumericQuestion data={{
+              name: 'Team Number',
               type: 'number',
-              params: {
-                min: '0'
-              }
+              params: {}
             }} gameStage="" noHelpers={true}/>
             {questionSets}
 
             <input type="submit" value="Submit" className="btn btn-danger"/>
+            <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
           </form>
         </div>
       )
