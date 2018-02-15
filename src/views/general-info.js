@@ -20,18 +20,22 @@ class AllTeamsInfo extends Component {
 
   render () {
     if (this.state.data) {
-      return <div>
-        <MainMenu view="general-info"/><br/>
-        <GraphSet config="" parser={a => {
-          const result = a
-          Object.keys(result).forEach(key => {
-            result[key].type = 'detailedBar'
-            result[key].labels = a.labels
-          })
-          delete result.labels
-          return result
-        }} data={this.state.data}/>
-      </div>
+      return (
+        <div className="text-center" style={{
+          margin: '20px'
+        }}>
+          <MainMenu view="general-info"/><br/>
+          <GraphSet config="" parser={a => {
+            const result = a
+            Object.keys(result).forEach(key => {
+              result[key].type = 'detailedBar'
+              result[key].labels = a.labels
+            })
+            delete result.labels
+            return result
+          }} data={this.state.data}/>
+        </div>
+      )
     } else {
       return <div>Loading...</div>
     }
