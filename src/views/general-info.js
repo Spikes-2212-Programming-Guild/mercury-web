@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
 import GraphSet from '../components/graph-set'
+import GeneralInfoParser from '../data-parsing/general-info-parser'
 import axios from 'axios'
 
 class AllTeamsInfo extends Component {
@@ -25,15 +26,7 @@ class AllTeamsInfo extends Component {
           margin: '20px'
         }}>
           <MainMenu view="general-info"/><br/>
-          <GraphSet config="" parser={a => {
-            const result = a
-            Object.keys(result).forEach(key => {
-              result[key].type = 'detailedBar'
-              result[key].labels = a.labels
-            })
-            delete result.labels
-            return result
-          }} data={this.state.data}/>
+          <GraphSet config="" parser={GeneralInfoParser} data={this.state.data}/>
         </div>
       )
     } else {
