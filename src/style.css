@@ -16,7 +16,6 @@ body {
   margin: auto;
 }
 
-/* disable spinner in the number input field */
 
 .btn span.glyphicon {
 	opacity: 0;
@@ -24,7 +23,7 @@ body {
 .btn.active span.glyphicon {
 	opacity: 1;
 }
-
+/* disable spinner in the number input field */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -42,7 +41,6 @@ input[type="number"]{
   text-align: center;
 }
 
-/* div#root {
-  margin: auto;
-  max-width: 800px;
-} */
+input:invalid {
+    box-shadow: none;
+}
