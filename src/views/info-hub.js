@@ -34,6 +34,12 @@ class InfoHub extends Component {
           <b>{'Enter Team Number'}</b> <br/>
           <input min={1} max={10000} className='btn btn-secondary' type='number' name='teamNumber'/>
         </form>
+        <br/>
+        <button className="btn btn-secondary" onClick={() => {
+          this.setState({
+            toRender: <Redirect to="/info/all" push={true}/>
+          })
+        }}>General Info</button>
       </div>
     }
   }
