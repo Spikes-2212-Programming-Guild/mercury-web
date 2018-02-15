@@ -21,27 +21,6 @@ class TeamInfo extends Component {
       }}>
         <h1>{'Team ' + this.state.teamNumber}</h1>
         <MainMenu view="team-info" teamNumber={this.state.teamNumber}/>
-        <form ref={(ci) => this.setState({formRef: ci})} onSubmit={(event) => {
-          event.preventDefault()
-          const form = this.state.formRef
-          const elements = Array.from(form.elements)
-          elements.forEach((element) => {
-            if (element.name === 'chooseColors') {
-              pickScheme(element.value)
-              updateHTML()
-              this.forceUpdate()
-            }
-          })
-        }}>
-          <div className="btn btn-group">
-            <select name='chooseColors' class='btn btn-info'>
-              <option value="0">Normal</option>
-              <option value="1">Sagi Mode</option>
-              <option value="2">Greyscale</option>
-            </select>
-            <input type='submit' value='Change colors' class='btn btn-warning'/>
-          </div>
-        </form>
         <GraphSet data={this.state.graphData} parser={TeamInfoParser} config={TeamInfoConfig}/>
       </div>
     }

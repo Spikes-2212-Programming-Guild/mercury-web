@@ -9,20 +9,20 @@ export default (title, chartRecipe) => {
     <Line
       data={
         {
-          labels: data,
+          labels: labels,
           datasets: [
             {
               label: title,
               borderWidth: 1,
-              borderColor: this.generateColors(1),
+              borderColor: generateColors(1),
               data: data,
               fill: false,
-              backgroundColor: this.generateColors(1)
+              backgroundColor: generateColors(1)
             }
           ]
         }
       }
-      height={'30vh'}
+      height={'50vh'}
       width={'100%'}
       options={{
         maintainAspectRatio: true,
@@ -30,7 +30,8 @@ export default (title, chartRecipe) => {
           yAxes:
             [{
               ticks: {
-                min: 0
+                min: 0,
+                stepSize: 1
               }
             }]
         }

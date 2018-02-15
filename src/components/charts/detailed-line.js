@@ -5,11 +5,12 @@ export default (title, chartRecipe) => {
   const avg = chartRecipe.avg
   const med = chartRecipe.med
   const data = chartRecipe.data
+  const labels = chartRecipe.labels
   return (
     <Line
       data={
         {
-          labels: data,
+          labels: labels,
           datasets: [
             {
               label: title,
@@ -24,16 +25,16 @@ export default (title, chartRecipe) => {
               borderWidth: 1,
               data: data.map(() => avg),
               fill: false,
-              backgroundColor: generateColors(2)[1],
-              borderColor: generateColors(2)[1]
+              backgroundColor: generateColors(3)[2],
+              borderColor: generateColors(3)[2]
             },
             {
               label: 'Median',
               borderWidth: 1,
               data: data.map(() => med),
               fill: false,
-              backgroundColor: generateColors(3)[2],
-              borderColor: generateColors(3)[2]
+              backgroundColor: generateColors(5)[4],
+              borderColor: generateColors(5)[4]
             }
           ]
         }
@@ -42,11 +43,13 @@ export default (title, chartRecipe) => {
       width={'100%'}
       options={{
         maintainAspectRatio: true,
+        responsive: true,
         scales: {
           yAxes:
             [{
               ticks: {
-                min: 0
+                min: 0,
+                stepSize: 1
               }
             }]
         }
