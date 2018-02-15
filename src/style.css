@@ -1,0 +1,48 @@
+
+body {
+  /* disable text higlightening */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome and Opera */
+  margin: auto;
+}
+
+/* disable spinner in the number input field */
+
+.btn span.glyphicon {
+	opacity: 0;
+}
+.btn.active span.glyphicon {
+	opacity: 1;
+}
+
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.active {
+  color: #f00;
+}
+
+.btn-group {
+  margin:auto;
+}
+
+input[type="number"]{
+  text-align: center;
+}
+
+/* div#root {
+  margin: auto;
+  max-width: 800px;
+} */
