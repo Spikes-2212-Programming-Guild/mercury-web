@@ -23,6 +23,7 @@ class AllTeamsInfo extends Component {
     if (this.state.data) {
       return (
         <div className="text-center">
+          <h1>General Info</h1>
           <MainMenu view="general-info"/><br/>
           <GraphSet config="" parser={GeneralInfoParser} data={this.state.data}/>
         </div>
