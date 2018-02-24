@@ -5,9 +5,9 @@ import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/cha
 class SettingsMenu extends Component {
   constructor (props) {
     super(props)
-    var currentScheme = getColorScheme(localStorage.schemeNum)
+    let currentScheme = getColorScheme(localStorage.schemeNum)
     const options = []
-    var count = 0
+    let count = 0
     Object.keys(colorSchemes).forEach((scheme) => {
       options.push(<option value={count}>{colorSchemes[scheme].name}</option>)
       count++
@@ -54,9 +54,7 @@ class SettingsMenu extends Component {
   }
 
   render () {
-    return (<div className="text-center" style={{
-      margin: '20px'
-    }}>
+    return (<div className="text-center">
       {this.toRender}
     </div>)
   }

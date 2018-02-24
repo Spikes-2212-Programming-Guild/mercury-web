@@ -22,9 +22,7 @@ class AllTeamsInfo extends Component {
   render () {
     if (this.state.data) {
       return (
-        <div className="text-center" style={{
-          margin: '20px'
-        }}>
+        <div className="text-center">
           <MainMenu view="general-info"/><br/>
           <GraphSet config="" parser={GeneralInfoParser} data={this.state.data}/>
         </div>

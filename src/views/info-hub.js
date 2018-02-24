@@ -45,9 +45,7 @@ class InfoHub extends Component {
   }
 
   render () {
-    return (<div className="text-center" style={{
-      margin: '20px'
-    }}>
+    return (<div className="text-center">
       {this.state.toRender}
     </div>)
   }
