@@ -26,6 +26,7 @@ class GraphSet extends Component {
       graphs.push(<div className="chart-container">
         <h2>{chartName}</h2> <br/>
         {graph}
+        <hr/>
       </div>)
     })
     return (<div>{graphs}</div>)
