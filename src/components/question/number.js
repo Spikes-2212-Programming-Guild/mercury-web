@@ -31,22 +31,16 @@ class NumericQuestion extends Question {
       } required/>
     if (!this.props.noHelpers) {
       return (
-        <div className={this.optimizeName(this.state.gameStage)}>
+        <div>
           <b>{this.state.data.name}</b> <br/>
           <div className="btn btn-group">
-            <button type="button" className="btn btn-primary"
-              onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')} style={{
-                width: '15vw'
-              }
-              }>
+            <button type="button" className="btn btn-primary helper-btn"
+              onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')}>
               -1
             </button>
             {questionInput}
-            <button type="button" className="btn btn-primary"
-              onClick={addNumberToInput(1, this.getOptimizedName() + 'input')} style={{
-                width: '15vw'
-              }
-              }>
+            <button type="button" className="btn btn-primary helper-btn"
+              onClick={addNumberToInput(1, this.getOptimizedName() + 'input')}>
               +1
             </button>
           </div>
@@ -54,7 +48,7 @@ class NumericQuestion extends Question {
       )
     } else {
       return (
-        <div className={this.optimizeName(this.state.gameStage)}>
+        <div>
           <b>{this.state.data.name}</b> <br/>
           <div className="btn-group">
             {questionInput}
