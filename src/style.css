@@ -29,14 +29,15 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   margin: 0;
 }
 
-.active {
-  color: #f00;
-}
 
 .btn-group {
   margin:auto;
 }
 
+.main-menu-btn {
+  width: 25vw;
+  max-width: 200px;
+}
 input[type="number"]{
   text-align: center;
 }
