@@ -72,7 +72,7 @@ class ScoutingForm extends Component {
                 if (element.checked) {
                   data[element.name] = element.value
                 }
-              } else if (element.type !== 'label' && element.type !== 'button') {
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
                 data[element.name] = element.value
               }
             })
