@@ -2,8 +2,7 @@ import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 
 class TeamInfoForm extends Component {
-
-  constructor(props){
+  constructor (props) {
     super(props)
     this.state = {
       formRef: null,
