@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import MainMenu from './main-menu'
 import {Redirect} from 'react-router-dom'
 import TeamInfoForm from '../components/info-hub/team-info-form'
+import GeneralInfoForm from '../components/info-hub/general-info-form'
 
 class InfoHub extends Component {
   constructor (props) {
@@ -12,11 +13,7 @@ class InfoHub extends Component {
         <MainMenu view="info-hub"/>
         <TeamInfoForm/>
         <br/>
-        <button className="btn btn-secondary" onClick={() => {
-          this.setState({
-            toRender: <Redirect to="/info/all" push={true}/>
-          })
-        }}>General Info</button>
+        <GeneralInfoForm/>
       </div>
     }
   }
