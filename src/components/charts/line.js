@@ -1,5 +1,5 @@
 import React from 'react'
-import {generateColors, getScreenOrientation} from './chart-builder'
+import {generateColors, getScreenOrientation} from './chart-utils'
 import {Line} from 'react-chartjs-2'
 
 export default (title, chartRecipe) => {

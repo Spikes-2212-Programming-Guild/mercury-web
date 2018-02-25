@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
-import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-builder'
+import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-utils'
 
 class SettingsMenu extends Component {
   constructor (props) {
