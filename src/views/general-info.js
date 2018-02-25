@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
-import GraphSet from '../components/graph-set'
+import GraphSet from '../components/chart-set'
 import GeneralInfoParser from '../data-parsing/general-info-parser'
 import axios from 'axios'
 
