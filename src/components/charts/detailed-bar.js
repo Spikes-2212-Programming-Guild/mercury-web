@@ -23,7 +23,7 @@ export default (title, chartRecipe) => {
       datasets: datasets
     }}
     width='100%'
-    height='30vh'
+    height='40vw'
 
     options={{
       maintainAspectRatio: true,
