@@ -1,5 +1,5 @@
 import React from 'react'
-import {generateColors} from './chart-builder'
+import {generateColors, getScreenOrientation} from './chart-builder'
 import {Line} from 'react-chartjs-2'
 
 export default (title, chartRecipe) => {
@@ -22,7 +22,10 @@ export default (title, chartRecipe) => {
           ]
         }
       }
-      height={'50vh'}
+      height={(() => {
+        if (getScreenOrientation() === 'land') return '30vw'
+        else return ''
+      })()}
       width={'100%'}
       options={{
         maintainAspectRatio: true,
