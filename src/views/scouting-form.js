@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
 import MainMenu from './main-menu'
+import scoutingFormManager from '../scouting-form-manager'
 import axios from 'axios'
 
 /**
@@ -21,15 +22,15 @@ class ScoutingForm extends Component {
    */
   constructor (props) {
     super(props)
-
-    this.state = {
-      form: null
+    if (!scoutingFormManager.loadFromStorage()) {
+      scoutingFormManager.getFromServer()
+        .then((data) => {
+          this.form = data
+        })
+        .catch(err => alert(err))
+    } else {
+      this.form = scoutingFormManager.loadFromStorage()
     }
-
-    axios.get('/api/game-config/').then(res => {
-      this.setState({form: res.data})
-      this.forceUpdate()
-    })
   }
 
   /**
@@ -37,7 +38,7 @@ class ScoutingForm extends Component {
    * @returns {XML} the rendered ScoutingForm
    */
   render () {
-    if (this.state.form) {
+    if (this.form) {
       const reset = () => {
         const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
         const elements = Array.from(form.elements)
@@ -55,8 +56,8 @@ class ScoutingForm extends Component {
 
       const questionSets = []
 
-      Object.keys(this.state.form).forEach((res) => {
-        questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
+      Object.keys(this.form).forEach((res) => {
+        questionSets.push(<QuestionSet questions={this.form[res]} gameStage={res}/>)
       })
       return (
         <div className="text-center">
