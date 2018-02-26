@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
 import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-utils'
+import scoutingFormManager from '../util/scouting-form-manager'
 
 class SettingsMenu extends Component {
   constructor (props) {
@@ -55,7 +56,13 @@ class SettingsMenu extends Component {
 
   render () {
     return (<div className="text-center">
-      {this.toRender}
+      {this.toRender} <br/>
+      <hr/>
+      <button className="btn btn-secondary" onClick={() => {
+        scoutingFormManager.getFromServer()
+          .then(() => alert('Loaded Form Successfully'))
+          .catch(err => alert('Error While Updating Scouting Form ' + JSON.stringify(err)))
+      }}>Update Scouting Form</button>
     </div>)
   }
 }
