@@ -9,16 +9,16 @@ class SelectQuestion extends Question {
     const optimizedName = this.getOptimizedName()
     this.state.data.params.options.forEach((option, index) => {
       inputs.push(
-        <label className="btn-primary btn">
+        <label className="btn-primary btn enum-btn">
           <input type="radio" value={option} className="" name={optimizedName} required/> {option}
         </label>
       )
     })
 
     return (
-      <div>
+      <div className="enum-container">
         <b>{this.state.data.name}</b> <br/>
-        <div className="btn-group  enum-holder">
+        <div className="btn-group" style={{margin: 'auto'}}>
           {inputs}
         </div>
       </div>
