@@ -56,7 +56,7 @@ class SettingsMenu extends Component {
 
   render () {
     return (<div className="text-center">
-      {this.toRender} <br/>
+      {this.toRender}
       <hr/>
       <button className="btn btn-secondary" onClick={() => {
         scoutingFormManager.getFromServer()
