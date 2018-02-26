@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
 import MainMenu from './main-menu'
-import scoutingFormManager from '../scouting-form-manager'
+import scoutingFormManager from '../util/scouting-form-manager'
 import axios from 'axios'
 
 /**
