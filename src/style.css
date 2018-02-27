@@ -25,7 +25,7 @@ body {
 }
 
 .enum-btn {
-  max-width: 25vw;
+  margin-bottom: 0;
 }
 /* disable spinner in the number input field */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
@@ -34,14 +34,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 
 .helper-btn {
-  max-width: 80px;
-}
-.btn-group {
-  /*margin:auto;*/
-}
-.btn-group-vertical > button{
-  margin-bottom:10px;
-  border-radius:10px !important;
+  max-width: 150px;
+  width: 10vw;
 }
 .main-menu-btn {
   width: 25vw;
