@@ -25,10 +25,7 @@ class NumericQuestion extends Question {
     const max = this.state.data.params.max ? this.state.data.params.max : 10000
     const questionInput = <input min={min} max={max}
       name={this.getOptimizedName()} placeholder={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"
-      className="btn btn-secondary" style={{
-        width: '30vw'
-      }
-      } required/>
+      className="btn btn-secondary" required/>
     if (!this.props.noHelpers) {
       return (
         <div>
