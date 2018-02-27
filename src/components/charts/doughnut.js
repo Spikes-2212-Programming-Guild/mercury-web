@@ -17,12 +17,7 @@ export default (title, chartRecipe) => {
         ],
         labels: labels
       }}
-      height={
-        (() => {
-          if (getScreenOrientation() === 'land') return '30vw'
-          else return ''
-        })()
-      }
+      height='80px'
       // width={'100%'}
       options={{
         maintainAspectRatio: true

@@ -14,10 +14,6 @@ class GraphSet extends Component {
     this.graphConstructors['detailedLine'] = detailedLine
     this.graphConstructors['line'] = Line
     this.graphConstructors['detailedBar'] = detailedBar
-
-    window.addEventListener('resize', () => {
-      this.forceUpdate()
-    })
   }
 
   render () {

@@ -33,13 +33,13 @@ export function getColorScheme (num) {
 export function getScreenOrientation () {
   const width = window.innerWidth
   const height = window.innerHeight
-  if (width > height) return 'land'
-  else return 'port'
+  if (width > height) return 1
+  else return 0
 }
 
 export function generateColors (size) {
   const res = []
-  var colors = getColorScheme(localStorage.getItem('schemeNum')).colors
+  let colors = getColorScheme(localStorage.getItem('schemeNum')).colors
   for (let i = 0; i < size; i++) {
     res[i] = colors[i % colors.length]
   }

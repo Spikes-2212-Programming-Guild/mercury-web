@@ -22,10 +22,7 @@ export default (title, chartRecipe) => {
           ]
         }
       }
-      height={(() => {
-        if (getScreenOrientation() === 'land') return '30vw'
-        else return ''
-      })()}
+      height='90px'
       width={'100%'}
       options={{
         maintainAspectRatio: true,

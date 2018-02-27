@@ -23,12 +23,7 @@ export default (title, chartRecipe) => {
       datasets: datasets
     }}
     // width='100%'
-    height={
-      (() => {
-        if (getScreenOrientation() === 'land') return '30vw'
-        else return ''
-      })()
-    }
+    height='80px'
 
     options={{
       maintainAspectRatio: true,
