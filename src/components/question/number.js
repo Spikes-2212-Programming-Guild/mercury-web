@@ -14,7 +14,7 @@ class NumericQuestion extends Question {
   }
 
   render () {
-    const addNumberToInput = (number, inputName) => {
+    const addNumberToInput = (number) => {
       return () => {
         const input = this.state.ref
 
@@ -40,12 +40,12 @@ class NumericQuestion extends Question {
           <b>{this.state.data.name}</b> <br/>
           <div className="btn btn-group">
             <button type="button" className="btn btn-primary helper-btn"
-              onClick={addNumberToInput(-1, this.getOptimizedName() + 'input')}>
+              onClick={addNumberToInput(-1)}>
               -1
             </button>
             {questionInput}
             <button type="button" className="btn btn-primary helper-btn"
-              onClick={addNumberToInput(1, this.getOptimizedName() + 'input')}>
+              onClick={addNumberToInput(1)}>
               +1
             </button>
           </div>
