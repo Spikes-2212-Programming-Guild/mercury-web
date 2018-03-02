@@ -77,18 +77,29 @@ class ScoutingForm extends Component {
                 data[element.name] = element.value
               }
             })
-            axios.post('/api/team/submit-match', {match: data})
-              .then(function () {
-                alert('Submited Data Successfully')
-              })
-              .catch(function (err) {
-                if (err.response.data === 'match-already-saved') {
-                  alert('This Match Was Already Saved!!!')
-                } else {
-                  alert('Error While Submiting Data')
-                }
-              })
-            reset()
+            if (window.confirm('Are You Sure You Want To Insert This Match? \n ' + JSON.stringify(data))) {
+              axios.post('/api/team/submit-match', {match: data})
+                .then(function () {
+                  alert('Submited Data Successfully')
+                  reset()
+                })
+                .catch(function (err) {
+                  if (err.response.data === 'match-already-saved') {
+                    if (window.confirm('This match was already saved, \n would you like To update it?')) {
+                      axios.post('/api/team/submit-match', {match: data, force:true})
+                        .then(() => alert('Updated Match Successfully'))
+                        .catch(err => {
+                          alert('Error While Updating Data')
+                          console.error(err)
+                        })
+                    } else {
+                      reset()
+                    }
+                  } else {
+                    alert('Error While Submiting Data')
+                  }
+                })
+            }
           }}>
             <NumericQuestion data={{
               name: 'Team Number',
