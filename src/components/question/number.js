@@ -5,10 +5,18 @@ import Question from './basic'
  * This class extends {Question} and represents a question that expects a number as its answer.
  */
 class NumericQuestion extends Question {
+  constructor(props) {
+    super(props)
+    this.state.ref = null
+  }
+  componentDidMount () {
+    this.state.ref.value = this.state.data.params.min
+  }
+
   render () {
     const addNumberToInput = (number, inputName) => {
       return () => {
-        const input = this.refs[inputName]
+        const input = this.state.ref
 
         let value = parseInt(input.value)
         if (!value) value = 0
@@ -24,7 +32,7 @@ class NumericQuestion extends Question {
     // Setting a default maximum value if not set
     const max = this.state.data.params.max ? this.state.data.params.max : 10000
     const questionInput = <input min={min} max={max}
-      name={this.getOptimizedName()} placeholder={this.state.data.params.min} ref={this.getOptimizedName() + 'input'} type="number"
+      name={this.getOptimizedName()} ref={ (r) => (this.state.ref = r)} type="number"
       className="btn btn-secondary" required/>
     if (!this.props.noHelpers) {
       return (
