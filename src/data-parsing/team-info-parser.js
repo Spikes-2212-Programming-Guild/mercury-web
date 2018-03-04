@@ -62,7 +62,7 @@ function parser (info, config) {
       } else if (info[key].type === 'boolean') {
         info[key].labels = ['Yes', 'No']
         chartRecipes[key] = parseEnumQuestion(info[key], config, true)
-      } else if (info[key].type === 'enum') {
+      } else if (info[key].type === 'number') {
         info[key].labels = info['matchnumber']
         chartRecipes[key] = parseNumberQuestion(info[key], config)
       } else {
