@@ -48,8 +48,7 @@ export default (title, chartRecipe) => {
           yAxes:
             [{
               ticks: {
-                min: 0,
-                stepSize: 1
+                min: 0
               }
             }]
         }
