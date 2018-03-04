@@ -159,7 +159,7 @@ class ScoutingForm extends Component {
             </div>
           </form>
           <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
-            questions={this.form} answers={ReactDOM.findDOMNode(this.refs['scouting-form'])}/>
+            questions={this.form} form={ReactDOM.findDOMNode(this.refs['scouting-form'])}/>
         </div>
       )
     }
