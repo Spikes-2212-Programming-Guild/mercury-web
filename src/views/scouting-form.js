@@ -4,6 +4,7 @@ import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
 import MainMenu from './main-menu'
 import scoutingFormManager from '../util/scouting-form-manager'
+import ConfirmationModal from '../util/confirmation-modal'
 import axios from 'axios'
 
 /**
@@ -20,7 +21,7 @@ class ScoutingForm extends Component {
    *
    * @param props
    */
-  constructor(props) {
+  constructor (props) {
     super(props)
     if (!scoutingFormManager.loadFromStorage()) {
       scoutingFormManager.getFromServer()
@@ -31,26 +32,57 @@ class ScoutingForm extends Component {
     } else {
       this.form = scoutingFormManager.loadFromStorage()
     }
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
+    this.state = {
+      show: false,
+      canSubmit: false
+    }
+  }
+
+  handleShow () {
+    this.setState({show: true})
+    console.log('Opening modal')
+  }
+
+  handleClose () {
+    this.setState({show: false})
+    console.log('Closing modal')
+  }
+
+  handleSubmit () {
+    console.log('Submit from modal')
+    new Promise((resolve, reject) => {
+      this.setState({
+        show: false,
+        canSubmit: true
+      })
+      resolve()
+    }).then(() => {
+      ReactDOM.findDOMNode(this.refs['scouting-form']).dispatchEvent(new Event('submit'))
+    })
   }
 
   /**
    * This method renders the current ScoutingForm instance to the screen
    * @returns {XML} the rendered ScoutingForm
    */
-  render() {
+  render () {
     if (this.form) {
       const reset = () => {
         const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
         const elements = Array.from(form.elements)
         elements.forEach(function (element) {
-            if (element.type === 'radio') {
-              if (element.checked) {
-                element.checked = false
-              }
-            } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-              element.value = ''
+          if (element.type === 'radio') {
+            if (element.checked) {
+              element.checked = false
             }
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+            element.value = ''
           }
+        }
         )
       }
 
@@ -64,38 +96,47 @@ class ScoutingForm extends Component {
           <h1>Scouting Form</h1>
           <MainMenu view="scouting-form"/>
           <form ref="scouting-form" onSubmit={(event) => {
+            console.log('attempting submit, can submit? ' + this.state.canSubmit)
             event.preventDefault()
-            const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-            const data = {}
-            const elements = Array.from(form.elements)
-            elements.forEach(function (element) {
-              if (element.type === 'radio') {
-                if (element.checked) {
+            if (!this.state.canSubmit) {
+              this.handleShow()
+            } else {
+              console.log('Submitted')
+              this.setState({canSubmit: false})
+
+              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+              const data = {}
+              const elements = Array.from(form.elements)
+              elements.forEach(function (element) {
+                if (element.type === 'radio') {
+                  if (element.checked) {
+                    data[element.name] = element.value
+                  }
+                } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
                   data[element.name] = element.value
                 }
-              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-                data[element.name] = element.value
-              }
-            })
-            axios.post('/api/team/submit-match', {match: data})
-              .then(function () {
-                alert('Submited Data Successfully')
-                reset()
               })
-              .catch(function (err) {
-                if (err.response.data === 'match-already-saved') {
-                  if (window.confirm('This match was already saved, \n would you like To update it?')) {
-                    axios.post('/api/team/submit-match', {match: data, force: true})
-                      .then(() => alert('Updated Match Successfully'))
-                      .catch(err => {
-                        alert('Error While Updating Data')
-                        console.error(err)
-                      })
+
+              axios.post('/api/team/submit-match', {match: data})
+                .then(function () {
+                  alert('Submited Data Successfully')
+                  reset()
+                })
+                .catch(function (err) {
+                  if (err.response.data === 'match-already-saved') {
+                    if (window.confirm('This match was already saved, \n would you like To update it?')) {
+                      axios.post('/api/team/submit-match', {match: data, force: true})
+                        .then(() => alert('Updated Match Successfully'))
+                        .catch(err => {
+                          alert('Error While Updating Data')
+                          console.error(err)
+                        })
+                    }
+                  } else {
+                    alert('Error While Submiting Data')
                   }
-                } else {
-                  alert('Error While Submiting Data')
-                }
-              })
+                })
+            }
           }
           }>
             <NumericQuestion data={{
@@ -114,9 +155,11 @@ class ScoutingForm extends Component {
             {questionSets}
             <div className="btn btn-group">
               <input type="submit" value="Submit" className="btn btn-danger"/>
-              <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+              <input type="reset" value="Reset" className="btn btn-info"/>
             </div>
           </form>
+          <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
+            questions={this.form} answers={ReactDOM.findDOMNode(this.refs['scouting-form'])}/>
         </div>
       )
     }
