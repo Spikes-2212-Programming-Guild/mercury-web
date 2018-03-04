@@ -9,7 +9,7 @@ class TextQuestion extends Question {
     return (
       <div className={this.state.gameStage}>
         <b>{this.state.data.name}</b> <br/>
-        <input name={this.getOptimizedName()} required />
+        <input className="btn btn-outline-secondary" name={this.getOptimizedName()} required />
       </div>
     )
   }
