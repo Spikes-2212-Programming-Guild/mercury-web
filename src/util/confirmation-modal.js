@@ -2,17 +2,20 @@ import React, {Component} from 'react'
 import {Button, Modal} from 'react-bootstrap'
 
 class ConfirmationModal extends Component {
-  render() {
+  render () {
     console.log('Filled Form:')
     console.log(this.props.answers)
-    if (this.props.answers) {
-      const parsedAnswers = {}
+    if (this.props.answers()) {
+      const parsedAnswers = []
 
-      Object.keys(this.props.questions).forEach((res) => {
-        console.log('Questions: \n' + JSON.stringify(this.props.questions[res]))
+      Object.keys(this.props.answers()).forEach((key) => {
+        console.log('Questions: \n' + (this.props.answers()[key]))
+        parsedAnswers.push(<div>
+          <p>{`${key} -> ${this.props.answers()[key]}`}</p> <br/>
+        </div>)
       })
 
-      console.log('Parsed answers: \n' + JSON.stringify(parsedAnswers))
+      console.log('Parsed answers: \n' + (parsedAnswers))
       console.log('Modal Opened')
       return (<div>
         <Modal show={this.props.isOpen} onHide={this.props.close} animation={false}>
@@ -20,7 +23,7 @@ class ConfirmationModal extends Component {
             <Modal.Title>Do you want to submit this form?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Bla</p>
+            {parsedAnswers}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.submit}>Submit</Button>

@@ -54,7 +54,7 @@ class ScoutingForm extends Component {
 
   handleSubmit () {
     console.log('Submit from modal')
-    new Promise((resolve, reject) => {
+    new Promise((resolve) => {
       this.setState({
         show: false,
         canSubmit: true
@@ -98,25 +98,23 @@ class ScoutingForm extends Component {
           <form ref="scouting-form" onSubmit={(event) => {
             console.log('attempting submit, can submit? ' + this.state.canSubmit)
             event.preventDefault()
-            if (!this.state.canSubmit) {
-              this.handleShow()
-            } else {
-              console.log('Submitted')
-              this.setState({canSubmit: false})
-
-              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-              const data = {}
-              const elements = Array.from(form.elements)
-              elements.forEach(function (element) {
-                if (element.type === 'radio') {
-                  if (element.checked) {
-                    data[element.name] = element.value
-                  }
-                } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+            this.handleShow()
+            const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+            const data = {}
+            const elements = Array.from(form.elements)
+            elements.forEach(function (element) {
+              if (element.type === 'radio') {
+                if (element.checked) {
                   data[element.name] = element.value
                 }
-              })
-
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
+                data[element.name] = element.value
+              }
+            })
+            if (!this.state.canSubmit) {
+              this.data = data
+              this.handleShow()
+            } else {
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () {
                   alert('Submited Data Successfully')
@@ -137,8 +135,7 @@ class ScoutingForm extends Component {
                   }
                 })
             }
-          }
-          }>
+          }}>
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
@@ -157,9 +154,9 @@ class ScoutingForm extends Component {
               <input type="submit" value="Submit" className="btn btn-danger"/>
               <input type="reset" value="Reset" className="btn btn-info"/>
             </div>
-          </form>
+          </form> <br/>
           <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
-            questions={this.form} answers={ReactDOM.findDOMNode(this.refs['scouting-form'])}/>
+            answers={() => this.data}/>
         </div>
       )
     }
