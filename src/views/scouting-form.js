@@ -115,6 +115,7 @@ class ScoutingForm extends Component {
               this.data = data
               this.handleShow()
             } else {
+              this.setState({canSubmit: false})
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () {
                   alert('Submited Data Successfully')
