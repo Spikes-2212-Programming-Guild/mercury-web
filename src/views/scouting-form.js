@@ -4,6 +4,7 @@ import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
 import MainMenu from './main-menu'
 import scoutingFormManager from '../util/scouting-form-manager'
+import ConfirmationModal from '../util/confirmation-modal'
 import axios from 'axios'
 
 /**
@@ -31,6 +32,34 @@ class ScoutingForm extends Component {
     } else {
       this.form = scoutingFormManager.loadFromStorage()
     }
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+
+    this.state = {
+      show: false,
+      canSubmit: false
+    }
+  }
+
+  handleShow () {
+    this.setState({show: true})
+  }
+
+  handleClose () {
+    this.setState({show: false})
+  }
+
+  handleSubmit () {
+    new Promise((resolve, reject) => {
+      this.setState({
+        show: false,
+        canSubmit: true
+      })
+      resolve()
+    }).then(() => {
+      ReactDOM.findDOMNode(this.refs['scouting-form']).dispatchEvent(new Event('submit'))
+    })
   }
 
   /**
@@ -47,7 +76,7 @@ class ScoutingForm extends Component {
             if (element.checked) {
               element.checked = false
             }
-          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
             element.value = ''
           }
         }
@@ -73,11 +102,18 @@ class ScoutingForm extends Component {
                 if (element.checked) {
                   data[element.name] = element.value
                 }
-              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
                 data[element.name] = element.value
               }
             })
-            if (window.confirm('Are You Sure You Want To Insert This Match? \n ' + JSON.stringify(data))) {
+
+            if (!this.state.canSubmit) {
+              this.data = data
+              this.handleShow()
+            } else {
+              console.log('Submitted')
+              this.setState({canSubmit: false})
+
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () {
                   alert('Submited Data Successfully')
@@ -86,21 +122,23 @@ class ScoutingForm extends Component {
                 .catch(function (err) {
                   if (err.response.data === 'match-already-saved') {
                     if (window.confirm('This match was already saved, \n would you like To update it?')) {
-                      axios.post('/api/team/submit-match', {match: data, force:true})
-                        .then(() => alert('Updated Match Successfully'))
+                      axios.post('/api/team/submit-match', {match: data, force: true})
+                        .then(() => {
+                          alert('Updated Match Successfully')
+                          reset()
+                        })
                         .catch(err => {
                           alert('Error While Updating Data')
                           console.error(err)
                         })
-                    } else {
-                      reset()
                     }
                   } else {
                     alert('Error While Submiting Data')
                   }
                 })
             }
-          }}>
+          }
+          }>
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
@@ -117,9 +155,11 @@ class ScoutingForm extends Component {
             {questionSets}
             <div className="btn btn-group">
               <input type="submit" value="Submit" className="btn btn-danger"/>
-              <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+              <input type="reset" value="Reset" className="btn btn-info"/>
             </div>
           </form>
+          <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
+            questions={this.form} answers={() => this.data}/>
         </div>
       )
     }
