@@ -17,7 +17,7 @@ class QuestionSet extends Component {
     }
 
     this.questionConstructors = {}
-    this.questionConstructors['text'] =
+    this.questionConstructors['string'] =
             (data, gameStage) => { return <TextQuestion data={data} gameStage={gameStage}/> }
     this.questionConstructors['number'] =
             (data, gameStage) => { return <NumericQuestion data={data} gameStage={gameStage}/> }
