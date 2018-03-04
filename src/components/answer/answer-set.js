@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
-import Answer from 'answer'
+import Answer from './answer'
 
 /**
  * This class is responsible for displaying a set of answer that all share the same game stage (auto, teleop etc)
  */
-class QuestionSet extends Component {
+class AnswerSet extends Component {
   constructor (props) {
     super(props)
 
@@ -29,4 +29,4 @@ class QuestionSet extends Component {
   }
 }
 
-export default QuestionSet
+export default AnswerSet

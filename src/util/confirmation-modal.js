@@ -1,35 +1,24 @@
 import React, {Component} from 'react'
 import {Button, Modal} from 'react-bootstrap'
+import AnswerSet from '../components/answer/answer-set'
 
 class ConfirmationModal extends Component {
-  render() {
-    console.log('Filled Form:')
-    console.log(this.props.form)
-    if (this.props.form) {
-      const answers = {}
-      const elements = Array.from(this.props.form.elements)
-      elements.forEach(function (element) {
-        if (element.type === 'radio') {
-          if (element.checked) {
-            answers[element.name] = element.value
-          }
-        } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-          answers[element.name] = element.value
-        }
-      })
-      console.log('Answers:')
-      console.log(answers)
+  render () {
+    const getOptimizedName = function (name, stage) {
+      return (name + stage).split(' ').join('').toLowerCase()
+    }
 
+    if (this.props.answers()) {
       const parsedAnswers = {
         'metadata': [
           {
             question: 'Team number',
-            answer: answers['teamnumber'],
+            answer: this.props.answers()['teamnumber'],
             gameStage: 'metadata'
           },
           {
             question: 'Match number',
-            answer: answers['matchnumber'],
+            answer: this.props.answers()['matchnumber'],
             gameStage: 'metadata'
           }
         ]
@@ -37,25 +26,24 @@ class ConfirmationModal extends Component {
 
       Object.keys(this.props.questions).forEach((stage) => {
         const stageQuestions = this.props.questions[stage]
-        console.log('Questions in ' + stage + ': \n' + JSON.stringify(stageQuestions))
         const gameStage = []
         stageQuestions.forEach((question) => {
-          console.log(question)
           const query = {}
           query.question = question.name
-          query.answer = answers[question.name.split(' ').join('').toLowerCase()]
+          query.answer = this.props.answers()[getOptimizedName(question.name, stage)]
           query.gameStage = stage
           gameStage.push(query)
-          console.log('Parsed data for current question:')
-          console.log(query)
         })
         parsedAnswers[stage] = gameStage
       })
 
-      // console.log('Parsed answers: \n' + JSON.stringify(parsedAnswers))
-      console.log('Modal Opened')
+      console.log('Parsed answers: \n' + JSON.stringify(parsedAnswers))
 
       const answerSets = []
+
+      Object.keys(parsedAnswers).forEach((stage) => {
+        answerSets.push(<AnswerSet questions={parsedAnswers[stage]} gameStage={stage}/>)
+      })
 
       return (<div className="Modal">
         <Modal show={this.props.isOpen} onHide={this.props.close} animation={false}>
@@ -63,7 +51,7 @@ class ConfirmationModal extends Component {
             <Modal.Title>Do you want to submit this form?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h1>Answers</h1>
+            {answerSets}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.submit}>Submit</Button>
@@ -73,7 +61,6 @@ class ConfirmationModal extends Component {
       </div>)
     }
 
-    console.log('Modal can\'t open')
     return null
   }
 }

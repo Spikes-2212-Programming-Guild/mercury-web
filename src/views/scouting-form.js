@@ -44,16 +44,13 @@ class ScoutingForm extends Component {
 
   handleShow () {
     this.setState({show: true})
-    console.log('Opening modal')
   }
 
   handleClose () {
     this.setState({show: false})
-    console.log('Closing modal')
   }
 
   handleSubmit () {
-    console.log('Submit from modal')
     new Promise((resolve, reject) => {
       this.setState({
         show: false,
@@ -79,7 +76,7 @@ class ScoutingForm extends Component {
             if (element.checked) {
               element.checked = false
             }
-          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
             element.value = ''
           }
         }
@@ -96,26 +93,26 @@ class ScoutingForm extends Component {
           <h1>Scouting Form</h1>
           <MainMenu view="scouting-form"/>
           <form ref="scouting-form" onSubmit={(event) => {
-            console.log('attempting submit, can submit? ' + this.state.canSubmit)
             event.preventDefault()
+            const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+            const data = {}
+            const elements = Array.from(form.elements)
+            elements.forEach(function (element) {
+              if (element.type === 'radio') {
+                if (element.checked) {
+                  data[element.name] = element.value
+                }
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
+                data[element.name] = element.value
+              }
+            })
+
             if (!this.state.canSubmit) {
+              this.data = data
               this.handleShow()
             } else {
               console.log('Submitted')
               this.setState({canSubmit: false})
-
-              const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-              const data = {}
-              const elements = Array.from(form.elements)
-              elements.forEach(function (element) {
-                if (element.type === 'radio') {
-                  if (element.checked) {
-                    data[element.name] = element.value
-                  }
-                } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-                  data[element.name] = element.value
-                }
-              })
 
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () {
@@ -126,7 +123,10 @@ class ScoutingForm extends Component {
                   if (err.response.data === 'match-already-saved') {
                     if (window.confirm('This match was already saved, \n would you like To update it?')) {
                       axios.post('/api/team/submit-match', {match: data, force: true})
-                        .then(() => alert('Updated Match Successfully'))
+                        .then(() => {
+                          alert('Updated Match Successfully')
+                          reset()
+                        })
                         .catch(err => {
                           alert('Error While Updating Data')
                           console.error(err)
@@ -159,7 +159,7 @@ class ScoutingForm extends Component {
             </div>
           </form>
           <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
-            questions={this.form} form={ReactDOM.findDOMNode(this.refs['scouting-form'])}/>
+            questions={this.form} answers={() => this.data}/>
         </div>
       )
     }

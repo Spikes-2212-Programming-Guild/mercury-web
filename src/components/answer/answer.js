@@ -7,7 +7,7 @@ class Answer extends Component {
   render () {
     return (
       <div className={this.props.gameStage}>
-        <p><b>{this.props.data.name}:</b> {this.props.data.answer}</p>
+        <p>{this.props.data.question}: {this.props.data.answer}</p>
       </div>
     )
   }
