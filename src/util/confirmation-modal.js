@@ -1,29 +1,57 @@
 import React, {Component} from 'react'
 import {Button, Modal} from 'react-bootstrap'
+import AnswerSet from '../components/answer/answer-set'
 
 class ConfirmationModal extends Component {
   render () {
-    console.log('Filled Form:')
-    console.log(this.props.answers)
-    if (this.props.answers()) {
-      const parsedAnswers = []
+    const getOptimizedName = function (name, stage) {
+      return (name + stage).split(' ').join('').toLowerCase()
+    }
 
-      Object.keys(this.props.answers()).forEach((key) => {
-        console.log('Questions: \n' + (this.props.answers()[key]))
-        parsedAnswers.push(<div>
-          <p>{`${key} -> ${this.props.answers()[key]}`}</p> <br/>
-        </div>)
+    if (this.props.answers()) {
+      const parsedAnswers = {
+        'metadata': [
+          {
+            question: 'Team number',
+            answer: this.props.answers()['teamnumber'],
+            gameStage: 'metadata'
+          },
+          {
+            question: 'Match number',
+            answer: this.props.answers()['matchnumber'],
+            gameStage: 'metadata'
+          }
+        ]
+      }
+
+      Object.keys(this.props.questions).forEach((stage) => {
+        const stageQuestions = this.props.questions[stage]
+        const gameStage = []
+        stageQuestions.forEach((question) => {
+          const query = {}
+          query.question = question.name
+          query.answer = this.props.answers()[getOptimizedName(question.name, stage)]
+          query.gameStage = stage
+          gameStage.push(query)
+        })
+        parsedAnswers[stage] = gameStage
       })
 
-      console.log('Parsed answers: \n' + (parsedAnswers))
-      console.log('Modal Opened')
-      return (<div>
+      console.log('Parsed answers: \n' + JSON.stringify(parsedAnswers))
+
+      const answerSets = []
+
+      Object.keys(parsedAnswers).forEach((stage) => {
+        answerSets.push(<AnswerSet questions={parsedAnswers[stage]} gameStage={stage}/>)
+      })
+
+      return (<div className="Modal">
         <Modal show={this.props.isOpen} onHide={this.props.close} animation={false}>
           <Modal.Header>
             <Modal.Title>Do you want to submit this form?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {parsedAnswers}
+            {answerSets}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.submit}>Submit</Button>
@@ -33,7 +61,6 @@ class ConfirmationModal extends Component {
       </div>)
     }
 
-    console.log('Modal can\'t open')
     return null
   }
 }
