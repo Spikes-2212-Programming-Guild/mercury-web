@@ -1,5 +1,5 @@
 import React from 'react'
-import {generateColors} from './chart-builder'
+import {generateColors, getScreenOrientation} from './chart-utils'
 import {Line} from 'react-chartjs-2'
 export default (title, chartRecipe) => {
   const avg = chartRecipe.avg
@@ -39,8 +39,8 @@ export default (title, chartRecipe) => {
           ]
         }
       }
-      height={'50vh'}
-      width={'100%'}
+      height='110px'
+      // width={'100vw'}
       options={{
         maintainAspectRatio: true,
         responsive: true,
@@ -48,8 +48,7 @@ export default (title, chartRecipe) => {
           yAxes:
             [{
               ticks: {
-                min: 0,
-                stepSize: 1
+                min: 0
               }
             }]
         }

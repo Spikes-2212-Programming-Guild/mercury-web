@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
-import GraphSet from '../components/graph-set'
+import GraphSet from '../components/chart-set'
 import GeneralInfoParser from '../data-parsing/general-info-parser'
 import axios from 'axios'
 
@@ -22,9 +22,8 @@ class AllTeamsInfo extends Component {
   render () {
     if (this.state.data) {
       return (
-        <div className="text-center" style={{
-          margin: '20px'
-        }}>
+        <div className="text-center">
+          <h1>General Info</h1>
           <MainMenu view="general-info"/><br/>
           <GraphSet config="" parser={GeneralInfoParser} data={this.state.data}/>
         </div>
