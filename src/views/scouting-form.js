@@ -68,36 +68,42 @@ class ScoutingForm extends Component {
    */
   render () {
     if (this.form) {
+      /**
+       * Request to reset the form
+       * @param force - whether to force the reset or ask for confirmation
+       */
       const requestReset = (force = false) => {
         if (typeof force === 'object') {
-          force = false
+          force = false // When called from a button (and given an 'event' parameter) don't force reset
         }
-        console.log(force)
+        /**
+         * The reset function
+         */
         const reset = () => {
           const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
           const elements = Array.from(form.elements)
           elements.forEach(function (element) {
             if (element.type === 'radio') {
               if (element.checked) {
-                element.checked = false
+                element.checked = false // Empty enum questions
               }
             } else if (element.type === 'number') {
               if (element.name === 'teamnumber') {
-                element.value = ''
-              } else if (element.name !== 'matchnumber') {
-                element.value = element.min
+                element.value = '' // Empty the team number field
+              } else if (element.name !== 'matchnumber') { // Don't reset match number field
+                element.value = element.min // Set all other number fields to their minimum value
               }
             } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-              element.value = ''
+              element.value = '' // Set all other question fields to nothing
             }
           }
           )
         }
-        if (!force) {
-          if (window.confirm('Are you sure you want to reset?')) {
+        if (!force) { // Not forced reset
+          if (window.confirm('Are you sure you want to reset?')) { // Confirmation
             reset()
           }
-        } else {
+        } else { // Forced reset
           reset()
         }
       }
