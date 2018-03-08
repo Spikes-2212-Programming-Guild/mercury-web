@@ -3,7 +3,8 @@
  * @returns {*}
  */
 
-function parseNumberQuestion (question, config, chartRecipe) {
+function parseNumberQuestion (question, config) {
+  const chartRecipe = {labels: question.labels}
   chartRecipe.data = question.data
   chartRecipe.type = config.number
   let tot = 0
@@ -28,7 +29,8 @@ function parseNumberQuestion (question, config, chartRecipe) {
   return chartRecipe
 }
 
-function parseEnumQuestion (question, config, isBoolean, chartRecipe) {
+function parseEnumQuestion (question, config, isBoolean) {
+  const chartRecipe = {labels: question.labels}
   const parsedData = {}
   chartRecipe.labels.forEach(option => {
     parsedData[option] = 0
@@ -54,18 +56,21 @@ function parser (info, config) {
   const chartRecipes = {}
   Object.keys(info).forEach(key => {
     if (key !== 'matchnumber') {
-      const chartRecipe = {
-        'type': info[key].type
-      }
       if (info[key].options) {
-        chartRecipe.labels = info[key].options
-        chartRecipes[key] = parseEnumQuestion(info[key], config, false, chartRecipe)
-      } else if (chartRecipe.type === 'boolean') {
-        chartRecipe.labels = ['Yes', 'No']
-        chartRecipes[key] = parseEnumQuestion(info[key], config, true, chartRecipe)
+        info[key].labels = info[key].options
+        chartRecipes[key] = parseEnumQuestion(info[key], config, false)
+      } else if (info[key].type === 'boolean') {
+        info[key].labels = ['Yes', 'No']
+        chartRecipes[key] = parseEnumQuestion(info[key], config, true)
+      } else if (info[key].type === 'number') {
+        info[key].labels = info['matchnumber']
+        chartRecipes[key] = parseNumberQuestion(info[key], config)
       } else {
-        chartRecipe.labels = info['matchnumber']
-        chartRecipes[key] = parseNumberQuestion(info[key], config, chartRecipe)
+        const chartRecipe = {
+          data: info[key].data,
+          type: 'list'
+        }
+        chartRecipes[key] = chartRecipe
       }
     }
   })

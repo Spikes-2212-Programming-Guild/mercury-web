@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
 import MainMenu from './main-menu'
+import scoutingFormManager from '../util/scouting-form-manager'
+import ConfirmationModal from '../util/confirmation-modal'
 import axios from 'axios'
 
 /**
@@ -21,14 +23,42 @@ class ScoutingForm extends Component {
    */
   constructor (props) {
     super(props)
+    if (!scoutingFormManager.loadFromStorage()) {
+      scoutingFormManager.getFromServer()
+        .then((data) => {
+          this.form = data
+        })
+        .catch(err => alert(err))
+    } else {
+      this.form = scoutingFormManager.loadFromStorage()
+    }
+    this.handleShow = this.handleShow.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
 
     this.state = {
-      form: null
+      show: false,
+      canSubmit: false
     }
+  }
 
-    axios.get('/api/game-config/').then(res => {
-      this.setState({form: res.data})
-      this.forceUpdate()
+  handleShow () {
+    this.setState({show: true})
+  }
+
+  handleClose () {
+    this.setState({show: false})
+  }
+
+  handleSubmit () {
+    new Promise((resolve, reject) => {
+      this.setState({
+        show: false,
+        canSubmit: true
+      })
+      resolve()
+    }).then(() => {
+      ReactDOM.findDOMNode(this.refs['scouting-form']).dispatchEvent(new Event('submit'))
     })
   }
 
@@ -37,7 +67,7 @@ class ScoutingForm extends Component {
    * @returns {XML} the rendered ScoutingForm
    */
   render () {
-    if (this.state.form) {
+    if (this.form) {
       const reset = () => {
         const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
         const elements = Array.from(form.elements)
@@ -46,7 +76,7 @@ class ScoutingForm extends Component {
             if (element.checked) {
               element.checked = false
             }
-          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
+          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
             element.value = ''
           }
         }
@@ -55,13 +85,11 @@ class ScoutingForm extends Component {
 
       const questionSets = []
 
-      Object.keys(this.state.form).forEach((res) => {
-        questionSets.push(<QuestionSet questions={this.state.form[res]} gameStage={res}/>)
+      Object.keys(this.form).forEach((res) => {
+        questionSets.push(<QuestionSet questions={this.form[res]} gameStage={res}/>)
       })
       return (
-        <div className="text-center" style={{
-          margin: '20px'
-        }}>
+        <div className="text-center">
           <h1>Scouting Form</h1>
           <MainMenu view="scouting-form"/>
           <form ref="scouting-form" onSubmit={(event) => {
@@ -74,23 +102,43 @@ class ScoutingForm extends Component {
                 if (element.checked) {
                   data[element.name] = element.value
                 }
-              } else if (element.type !== 'label' && element.type !== 'button') {
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
                 data[element.name] = element.value
               }
             })
-            axios.post('/api/team/submit-match', {match: data})
-              .then(function () {
-                alert('Submited Data Successfully')
-              })
-              .catch(function (err) {
-                if (err.response.data === 'match-already-saved') {
-                  alert('This Match Was Already Saved!!!')
-                } else {
-                  alert('Error While Submiting Data')
-                }
-              })
-            reset()
-          }}>
+
+            if (!this.state.canSubmit) {
+              this.data = data
+              this.handleShow()
+            } else {
+              console.log('Submitted')
+              this.setState({canSubmit: false})
+
+              axios.post('/api/team/submit-match', {match: data})
+                .then(function () {
+                  alert('Submited Data Successfully')
+                  reset()
+                })
+                .catch(function (err) {
+                  if (err.response.data === 'match-already-saved') {
+                    if (window.confirm('This match was already saved, \n would you like To update it?')) {
+                      axios.post('/api/team/submit-match', {match: data, force: true})
+                        .then(() => {
+                          alert('Updated Match Successfully')
+                          reset()
+                        })
+                        .catch(err => {
+                          alert('Error While Updating Data')
+                          console.error(err)
+                        })
+                    }
+                  } else {
+                    alert('Error While Submiting Data')
+                  }
+                })
+            }
+          }
+          }>
             <NumericQuestion data={{
               name: 'Team Number',
               type: 'number',
@@ -107,9 +155,11 @@ class ScoutingForm extends Component {
             {questionSets}
             <div className="btn btn-group">
               <input type="submit" value="Submit" className="btn btn-danger"/>
-              <input type="button" value="Reset" className="btn btn-info" onClick={reset}/>
+              <input type="reset" value="Reset" className="btn btn-info"/>
             </div>
           </form>
+          <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}
+            questions={this.form} answers={() => this.data}/>
         </div>
       )
     }

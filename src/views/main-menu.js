@@ -8,45 +8,36 @@ class MainMenu extends Component {
     this.state = {
       currentView: props.view,
       ref: undefined,
-      toRender: <div className="btn btn-group-vertical" style={{
-        margin: '0px'
-      }}>
-        <div className="btn-group">
-          <button className="btn btn-secondary" onClick={() => {
+      toRender:
+        <div className="btn-group " style={{margin: '0px'}}>
+          <button className="btn btn-secondary main-menu-btn" onClick={() => {
             if (this.state.currentView !== 'scouting-form') {
               this.setState({
                 toRender: <Redirect to="/scouting-form/"/>
               })
               this.forceUpdate()
             }
-          }} style={{
-            width: '25vw'
-          }}>Scout
+          }} >Scout
           </button>
-          <button className="btn btn-secondary" onClick={() => {
+          <button className="btn btn-secondary main-menu-btn" onClick={() => {
             if (this.state.currentView !== 'info-hub') {
               this.setState({
                 toRender: <Redirect to="/info-hub/"/>
               })
               this.forceUpdate()
             }
-          }} style={{
-            width: '25vw'
-          }}>Info Hub
+          }} >Info Hub
           </button>
-          <button className="btn btn-secondary" onClick={() => {
+          <button className="btn btn-secondary main-menu-btn" onClick={() => {
             if (this.state.currentView !== 'settings-menu') {
               this.setState({
                 toRender: <Redirect to="/settings/" push={true}/>
               })
               this.forceUpdate()
             }
-          }} style={{
-            width: '20vw'
-          }}>Settings
+          }} >Settings
           </button>
         </div>
-      </div>
     }
   }
 

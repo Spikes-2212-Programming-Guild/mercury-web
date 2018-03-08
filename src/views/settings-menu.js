@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import MainMenu from './main-menu'
-import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-builder'
+import {pickScheme, colorSchemes, getColorScheme} from '../components/charts/chart-utils'
+import scoutingFormManager from '../util/scouting-form-manager'
 
 class SettingsMenu extends Component {
   constructor (props) {
     super(props)
-    var currentScheme = getColorScheme(localStorage.schemeNum)
+    let currentScheme = getColorScheme(localStorage.schemeNum)
     const options = []
-    var count = 0
+    let count = 0
     Object.keys(colorSchemes).forEach((scheme) => {
       options.push(<option value={count}>{colorSchemes[scheme].name}</option>)
       count++
@@ -54,10 +55,14 @@ class SettingsMenu extends Component {
   }
 
   render () {
-    return (<div className="text-center" style={{
-      margin: '20px'
-    }}>
+    return (<div className="text-center">
       {this.toRender}
+      <hr/>
+      <button className="btn btn-secondary" onClick={() => {
+        scoutingFormManager.getFromServer()
+          .then(() => alert('Loaded Form Successfully'))
+          .catch(err => alert('Error While Updating Scouting Form ' + JSON.stringify(err)))
+      }}>Update Scouting Form</button>
     </div>)
   }
 }

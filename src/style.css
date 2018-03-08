@@ -23,18 +23,23 @@ body {
 .btn.active span.glyphicon {
 	opacity: 1;
 }
+
+.enum-btn {
+  margin-bottom: 0;
+}
 /* disable spinner in the number input field */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.active {
-  color: #f00;
+.helper-btn {
+  max-width: 150px;
+  width: 15vw;
 }
-
-.btn-group {
-  margin:auto;
+.main-menu-btn {
+  width: 25vw;
+  max-width: 200px;
 }
 
 input[type="number"]{

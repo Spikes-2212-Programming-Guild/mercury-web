@@ -9,16 +9,16 @@ class SelectQuestion extends Question {
     const optimizedName = this.getOptimizedName()
     this.state.data.params.options.forEach((option, index) => {
       inputs.push(
-        <label className="btn btn-primary">
-          <input type="radio" value={option} className="btn btn-primary" name={optimizedName} required/> {option}
+        <label className="btn-primary btn enum-btn ">
+          <input type="radio" data-placement="left" value={option} className="" name={optimizedName} required /> {option}
         </label>
       )
     })
 
     return (
-      <div className={this.state.gameStage}>
+      <div >
         <b>{this.state.data.name}</b> <br/>
-        <div className="btn btn-group btn-group-justified">
+        <div className="btn-group-vertical btn" data-toggle="buttons">
           {inputs}
         </div>
       </div>

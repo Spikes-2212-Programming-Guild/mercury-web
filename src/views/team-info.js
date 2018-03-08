@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import GraphSet from '../components/graph-set'
+import GraphSet from '../components/chart-set'
 import TeamInfoParser from '../data-parsing/team-info-parser'
 import TeamInfoConfig from '../data-parsing/configs/team-info-config'
 import MainMenu from './main-menu'
-import {pickScheme} from '../components/charts/chart-builder'
+import {pickScheme} from '../components/charts/chart-utils'
 import axios from 'axios'
 
 class TeamInfo extends Component {

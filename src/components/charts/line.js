@@ -1,5 +1,5 @@
 import React from 'react'
-import {generateColors} from './chart-builder'
+import {generateColors, getScreenOrientation} from './chart-utils'
 import {Line} from 'react-chartjs-2'
 
 export default (title, chartRecipe) => {
@@ -22,7 +22,7 @@ export default (title, chartRecipe) => {
           ]
         }
       }
-      height={'50vh'}
+      height='90px'
       width={'100%'}
       options={{
         maintainAspectRatio: true,
