@@ -69,6 +69,10 @@ class ScoutingForm extends Component {
   render () {
     if (this.form) {
       const requestReset = (force = false) => {
+        if (typeof force === 'object') {
+          force = false
+        }
+        console.log(force)
         const reset = () => {
           const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
           const elements = Array.from(form.elements)
