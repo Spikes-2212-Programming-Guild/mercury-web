@@ -16,9 +16,6 @@ function parseNumberQuestion (question, config) {
   chartRecipe.data.forEach(input => {
     arr.push(parseInt(input)) // Copying values from data to arr
   })
-  arr.sort(function sortNumber (a, b) {
-    return a - b
-  }) // Sorts the array numerically
   let middle = Math.floor((arr.length - 1) / 2)
   if (arr.length % 2 !== 0) { // If there's an odd number of arguments
     chartRecipe.med = arr[middle] // The middle value is the median
