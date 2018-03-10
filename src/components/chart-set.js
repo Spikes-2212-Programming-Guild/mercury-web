@@ -5,12 +5,14 @@ import Line from './charts/line'
 import detailedLine from './charts/detailed-line'
 import detailedBar from './charts/detailed-bar'
 import List from './charts/list'
+import enumLine from './charts/enum-line'
 class GraphSet extends Component {
   constructor (props) {
     super(props)
     this.graphConstructors = {}
     this.graphConstructors['bar'] = Bar
     this.graphConstructors['doughnut'] = Doughnut
+    this.graphConstructors['enumLine'] = enumLine
     this.graphConstructors['detailedLine'] = detailedLine
     this.graphConstructors['line'] = Line
     this.graphConstructors['detailedBar'] = detailedBar

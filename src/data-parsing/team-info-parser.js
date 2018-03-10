@@ -54,9 +54,11 @@ function parser (info, config) {
   Object.keys(info).forEach(key => {
     if (key !== 'matchnumber') {
       if (info[key].options) {
+        info[key].matches = info['matchnumber']
         info[key].labels = info[key].options
         chartRecipes[key] = parseEnumQuestion(info[key], config, false)
       } else if (info[key].type === 'boolean') {
+        info[key].matches = info['matchnumber']
         info[key].labels = ['Yes', 'No']
         chartRecipes[key] = parseEnumQuestion(info[key], config, true)
       } else if (info[key].type === 'number') {
