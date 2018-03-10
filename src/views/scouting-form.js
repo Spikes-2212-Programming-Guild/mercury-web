@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
+import TextQuestion from '../components/question/string'
 import MainMenu from './main-menu'
 import scoutingFormManager from '../util/scouting-form-manager'
 import ConfirmationModal from '../util/confirmation-modal'
@@ -93,8 +94,8 @@ class ScoutingForm extends Component {
               } else if (element.name !== 'matchnumber') { // Don't reset match number field
                 element.value = element.min // Set all other number fields to their minimum value
               }
-            } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
-              element.value = '' // Set all other question fields to nothing
+            } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.name !== 'scoutername') {
+              element.value = '' // Set all other question (but scouter name) fields to nothing
             }
           }
           )
@@ -175,6 +176,10 @@ class ScoutingForm extends Component {
               params: {
                 min: 1
               }
+            }} gameStage=""/>
+
+            <TextQuestion data={{
+              name: 'Scouter Name'
             }} gameStage=""/>
 
             {questionSets}
