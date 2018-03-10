@@ -5,7 +5,7 @@ export default (title, chartRecipe) => {
 
   chartRecipe.data.forEach(item => {
     if (item !== '') {
-      data.push(<li className="list-group-item active">{item}</li>)
+      data.push(<li className="list-group-item active">Match {chartRecipe.matchNumber[chartRecipe.data.indexOf(item)]}: {item}</li>)
     }
   })
   return (<div>

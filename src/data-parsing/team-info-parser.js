@@ -65,6 +65,7 @@ function parser (info, config) {
       } else {
         const chartRecipe = {
           data: info[key].data,
+          matchNumber: info['matchnumber'],
           type: 'list'
         }
         chartRecipes[key] = chartRecipe
