@@ -3,9 +3,10 @@ import React, {Component} from 'react'
 export default (title, chartRecipe) => {
   const data = []
 
-  chartRecipe.data.forEach(item => {
-    if (item !== '') {
-      data.push(<li className="list-group-item active">Match {chartRecipe.matchNumber[chartRecipe.data.indexOf(item)]}: {item}</li>)
+  chartRecipe.matchNumber.forEach(match => {
+    const matchData = chartRecipe.data[chartRecipe.matchNumber.indexOf(match)]
+    if (matchData !== '') {
+      data.push(<li className="list-group-item active">Match {match}: {matchData}</li>)
     }
   })
   return (<div>

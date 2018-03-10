@@ -23,9 +23,10 @@ export default (title, chartRecipe) => {
         }
       }
       height='90px'
-      width={'100%'}
+      // width={'100%'}
       options={{
         maintainAspectRatio: true,
+        responsive: true,
         scales: {
           yAxes:
             [{
