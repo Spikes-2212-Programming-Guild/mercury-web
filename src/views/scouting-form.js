@@ -178,9 +178,8 @@ class ScoutingForm extends Component {
               }
             }} gameStage=""/>
 
-            <TextQuestion data={{
-              name: 'Scouter Name'
-            }} gameStage=""/>
+            <b>Scouter Name</b> <br/>
+            <input className="btn btn-outline-secondary" name="scoutername" style={{width: '95vw'}} required/>
 
             {questionSets}
             <div className="btn btn-group">
