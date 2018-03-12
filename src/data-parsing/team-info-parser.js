@@ -69,7 +69,7 @@ function parser(info, config) {
         chartRecipes[key] = parseEnumQuestion(info[key], config, false)
       } else if (info[key].type === 'boolean') {
         info[key].matches = info['matchnumber']
-        info[key].labels = ['Yes', 'No']
+        info[key].labels = ['No', 'Yes']
         chartRecipes[key] = parseEnumQuestion(info[key], config, true)
       } else if (info[key].type === 'number') {
         info[key].labels = info['matchnumber']
