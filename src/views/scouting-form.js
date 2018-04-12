@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import QuestionSet from '../components/question-set'
 import NumericQuestion from '../components/question/number'
+import TextQuestion from '../components/question/string'
 import MainMenu from './main-menu'
 import scoutingFormManager from '../util/scouting-form-manager'
 import ConfirmationModal from '../util/confirmation-modal'
@@ -68,19 +69,44 @@ class ScoutingForm extends Component {
    */
   render () {
     if (this.form) {
-      const reset = () => {
-        const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
-        const elements = Array.from(form.elements)
-        elements.forEach(function (element) {
-          if (element.type === 'radio') {
-            if (element.checked) {
-              element.checked = false
-            }
-          } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
-            element.value = ''
-          }
+      /**
+       * Request to reset the form
+       * @param force - whether to force the reset or ask for confirmation
+       */
+      const requestReset = (force = false) => {
+        if (typeof force === 'object') {
+          force = false // When called from a button (and given an 'event' parameter) don't force reset
         }
-        )
+        /**
+         * The reset function
+         */
+        const reset = () => {
+          const form = ReactDOM.findDOMNode(this.refs['scouting-form'])
+          const elements = Array.from(form.elements)
+          elements.forEach(function (element) {
+            if (element.type === 'radio') {
+              if (element.checked) {
+                element.checked = false // Empty enum questions
+              }
+            } else if (element.type === 'number') {
+              if (element.name === 'teamnumber') {
+                element.value = '' // Empty the team number field
+              } else if (element.name !== 'matchnumber') { // Don't reset match number field
+                element.value = element.min // Set all other number fields to their minimum value
+              }
+            } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.name !== 'scoutername') {
+              element.value = '' // Set all other question (but scouter name) fields to nothing
+            }
+          }
+          )
+        }
+        if (!force) { // Not forced reset
+          if (window.confirm('Are you sure you want to reset?')) { // Confirmation
+            reset()
+          }
+        } else { // Forced reset
+          reset()
+        }
       }
 
       const questionSets = []
@@ -102,7 +128,7 @@ class ScoutingForm extends Component {
                 if (element.checked) {
                   data[element.name] = element.value
                 }
-              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit' && element.type !== 'reset') {
+              } else if (element.type !== 'label' && element.type !== 'button' && element.type !== 'submit') {
                 data[element.name] = element.value
               }
             })
@@ -117,7 +143,7 @@ class ScoutingForm extends Component {
               axios.post('/api/team/submit-match', {match: data})
                 .then(function () {
                   alert('Submited Data Successfully')
-                  reset()
+                  requestReset(true)
                 })
                 .catch(function (err) {
                   if (err.response.data === 'match-already-saved') {
@@ -125,7 +151,7 @@ class ScoutingForm extends Component {
                       axios.post('/api/team/submit-match', {match: data, force: true})
                         .then(() => {
                           alert('Updated Match Successfully')
-                          reset()
+                          requestReset(true)
                         })
                         .catch(err => {
                           alert('Error While Updating Data')
@@ -152,10 +178,13 @@ class ScoutingForm extends Component {
               }
             }} gameStage=""/>
 
+            <b>Scouter Name</b> <br/>
+            <input className="btn btn-outline-secondary" name="scoutername" style={{width: '95vw'}} required/>
+
             {questionSets}
             <div className="btn btn-group">
               <input type="submit" value="Submit" className="btn btn-danger"/>
-              <input type="reset" value="Reset" className="btn btn-info"/>
+              <input type="button" value="Reset" className="btn btn-info" onClick={requestReset}/>
             </div>
           </form>
           <ConfirmationModal isOpen={this.state.show} close={this.handleClose} submit={this.handleSubmit}

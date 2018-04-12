@@ -3,7 +3,7 @@
  * @returns {*}
  */
 
-function parseNumberQuestion (question, config) {
+function parseNumberQuestion(question, config) {
   const chartRecipe = {labels: question.labels}
   chartRecipe.data = question.data
   chartRecipe.type = config.number
@@ -16,51 +16,60 @@ function parseNumberQuestion (question, config) {
   chartRecipe.data.forEach(input => {
     arr.push(parseInt(input)) // Copying values from data to arr
   })
-  arr.sort(function sortNumber (a, b) {
-    return a - b
-  }) // Sorts the array numerically
   let middle = Math.floor((arr.length - 1) / 2)
   if (arr.length % 2 !== 0) { // If there's an odd number of arguments
     chartRecipe.med = arr[middle] // The middle value is the median
   } else { // If there's an even number of arguments
     chartRecipe.med = (arr[middle] + arr[middle + 1]) / 2 // The median is the average of the two middle values
   }
-  console.log('med: ' + chartRecipe.med)
   return chartRecipe
 }
 
-function parseEnumQuestion (question, config, isBoolean) {
-  const chartRecipe = {labels: question.labels}
-  const parsedData = {}
-  chartRecipe.labels.forEach(option => {
-    parsedData[option] = 0
-  })
-
-  question.data.forEach(input => {
-    parsedData[input] += 1
-  })
-
-  const arr = []
-  Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
-
-  chartRecipe.data = arr
+function parseEnumQuestion(question, config, isBoolean) {
+  const chartRecipe = {
+    labels: question.labels,
+    matches: question.matches
+  }
   if (isBoolean) {
     chartRecipe.type = config.boolean
   } else {
     chartRecipe.type = config.enum
   }
+  const parsedData = {}
+
+  if (chartRecipe.type === 'enumLine') {
+    chartRecipe.data = question.data.map((item) => {
+      return question.labels.indexOf(item)
+    })
+  } else {
+    chartRecipe.labels.forEach(option => {
+      parsedData[option] = 0
+    })
+
+    question.data.forEach(input => {
+      parsedData[input] += 1
+    })
+
+    const arr = []
+    Object.keys(parsedData).forEach(option => arr.push(parsedData[option]))
+
+    chartRecipe.data = arr
+  }
+
   return chartRecipe
 }
 
-function parser (info, config) {
+function parser(info, config) {
   const chartRecipes = {}
   Object.keys(info).forEach(key => {
     if (key !== 'matchnumber') {
       if (info[key].options) {
+        info[key].matches = info['matchnumber']
         info[key].labels = info[key].options
         chartRecipes[key] = parseEnumQuestion(info[key], config, false)
       } else if (info[key].type === 'boolean') {
-        info[key].labels = ['Yes', 'No']
+        info[key].matches = info['matchnumber']
+        info[key].labels = ['No', 'Yes']
         chartRecipes[key] = parseEnumQuestion(info[key], config, true)
       } else if (info[key].type === 'number') {
         info[key].labels = info['matchnumber']
@@ -68,6 +77,7 @@ function parser (info, config) {
       } else {
         const chartRecipe = {
           data: info[key].data,
+          matchNumber: info['matchnumber'],
           type: 'list'
         }
         chartRecipes[key] = chartRecipe

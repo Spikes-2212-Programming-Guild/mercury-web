@@ -37,8 +37,6 @@ class ConfirmationModal extends Component {
         parsedAnswers[stage] = gameStage
       })
 
-      console.log('Parsed answers: \n' + JSON.stringify(parsedAnswers))
-
       const answerSets = []
 
       Object.keys(parsedAnswers).forEach((stage) => {

@@ -4,12 +4,13 @@ import {Line} from 'react-chartjs-2'
 
 export default (title, chartRecipe) => {
   const data = chartRecipe.data
-  const labels = chartRecipe.labels
+  const options = chartRecipe.labels
+  const matches = chartRecipe.matches
   return (
     <Line
       data={
         {
-          labels: labels,
+          labels: matches,
           datasets: [
             {
               label: title,
@@ -22,8 +23,8 @@ export default (title, chartRecipe) => {
           ]
         }
       }
-      height='90px'
-      // width={'100%'}
+      height='110px'
+      // width={'100vw'}
       options={{
         maintainAspectRatio: true,
         responsive: true,
@@ -32,7 +33,13 @@ export default (title, chartRecipe) => {
             [{
               ticks: {
                 min: 0,
-                stepSize: 1
+                callback: function (label, index, labels) {
+                  for (let i = 0; i < options.length; i++) {
+                    if (i === label) {
+                      return options[i]
+                    }
+                  }
+                }
               }
             }]
         }
